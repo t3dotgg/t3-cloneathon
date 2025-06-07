@@ -271,6 +271,56 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Rules Section */}
+        <div className="mb-20">
+          <h2 className="text-4xl font-bold text-white text-center mb-12">
+            Competition Rules
+          </h2>
+
+          <div className="max-w-4xl mx-auto bg-white/5 border border-white/10 rounded-xl p-8">
+            <div className="space-y-6">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                <p className="text-white/90">
+                  <strong>Open Source Requirement:</strong> Submissions must be
+                  open source with a permissive license (MIT, Apache, BSD etc.)
+                  and hosted on GitHub
+                </p>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                <p className="text-white/90">
+                  <strong>Age Requirement:</strong> Must be 18+ to be eligible
+                  for prizes
+                </p>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                <p className="text-white/90">
+                  <strong>Team Size:</strong> No more than 4 people per team
+                </p>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                <p className="text-white/90">
+                  <strong>Code of Conduct:</strong> Don't harass anyone please
+                </p>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                <p className="text-white/90">
+                  <strong>Content Usage:</strong> Theo might use your submission
+                  for content btw
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* CTA Section */}
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold text-white mb-4">
@@ -286,16 +336,18 @@ export default function HomePage() {
                 size="lg"
                 className="bg-purple-600 hover:bg-purple-700 text-white"
               >
-                Get Notified
+                Register Now
               </Button>
             </Link>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white/20 text-white hover:bg-white/5"
-            >
-              View GitHub
-            </Button>
+            <Link href="https://github.com/t3dotgg/t3-cloneathon">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white/20 text-white hover:bg-white/5"
+              >
+                View GitHub
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
