@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { CountdownTimer } from "@/components/countdown-timer"
 import {
   CheckCircle,
   Trophy,
@@ -37,6 +38,11 @@ export default function HomePage() {
             Build an open source clone of T3 Chat in just one week. Compete for prizes and showcase your skills to the
             community.
           </p>
+
+          {/* Subtle Countdown Timer */}
+          <div className="mb-8">
+            <CountdownTimer />
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 text-lg">
