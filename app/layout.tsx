@@ -6,10 +6,12 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "T3 Chat Cloneathon - Build & Win",
+  title: "T3 Chat Cloneathon",
   description:
-    "Join the T3 Chat Cloneathon competition. Build an open source clone in one week and compete for $6,000+ in prizes.",
-  generator: "v0.dev",
+    "Build an open source clone of T3 Chat and compete for over $6,000 in prizes.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
