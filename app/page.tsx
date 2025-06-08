@@ -157,15 +157,24 @@ export default function HomePage() {
 
         {/* Requirements Section */}
         <div className="mb-20">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
+          <h2 className="text-4xl font-bold text-white text-center mb-4">
             Requirements
           </h2>
 
           <div className="max-w-4xl mx-auto">
+            <p className="text-white/70 text-lg mb-8 text-center">
+              Build a cool AI chat app. Have fun with it. Make it look and feel
+              however you like.
+            </p>
             <div className="bg-white/5 border border-white/10 rounded-xl p-8 mb-8">
-              <h3 className="text-2xl font-bold text-white mb-6">
-                Core Requirements
-              </h3>
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-white">
+                  Core Requirements
+                </h3>
+                <span className="text-white/60 text-sm">
+                  The minimum to qualify for a prize
+                </span>
+              </div>
 
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
@@ -208,9 +217,14 @@ export default function HomePage() {
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">
-                Bonus Features
-              </h3>
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-white">
+                  Bonus Features
+                </h3>
+                <span className="text-white/60 text-sm">
+                  Ideas to go above and beyond
+                </span>
+              </div>
 
               <div className="grid md:grid-cols-2 gap-y-6 gap-x-8">
                 {[
