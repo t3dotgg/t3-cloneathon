@@ -84,11 +84,11 @@ export default function TermsAndConditionsPage() {
               </ul>
             </li>
             <li>
-              Prizes: total cash pool of [​$6500​], distributed as follows:
+              Prizes: total cash pool of [​$8000] (excluding t3.chat subscription price), distributed as follows:
               <ul>
                 <li>1st Place: [​$5000​]</li>
-                <li>2nd Place: [​$1000​]</li>
-                <li>3rd Place: [​$500​]</li>
+                <li>2nd Place: [​$2000​]</li>
+                <li>3rd Place: [​$1000​]</li>
               </ul>
             </li>
             <li>Winners will be announced no later than June 30, 2025.</li>
