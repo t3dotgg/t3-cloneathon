@@ -129,7 +129,7 @@ export function CountdownTimer() {
           <div className="text-xs text-white/40 mt-1 font-medium">sec</div>
         </div>
       </div>
-      <div className="text-xs text-white/40 mt-3">
+      <div className="text-xs text-white/40 mt-3 animate-in fade-in duration-500">
         Deadline: June 17, 2025 at 12:00 PM PDT
       </div>
     </div>
