@@ -14,6 +14,9 @@ import {
   Zap,
   Sparkles,
   CloudUploadIcon,
+  GlobeIcon,
+  KeyIcon,
+  SmartphoneIcon,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -213,6 +216,44 @@ export default function HomePage() {
                     <span className="text-sm">Required</span>
                   </div>
                 </div>
+
+                <div>
+                  <div className="flex items-start gap-3 mb-2">
+                    <GlobeIcon className="w-6 h-6 text-white/70 mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-white text-lg font-medium">
+                        Browser Friendly
+                      </h4>
+                      <p className="text-white/50">
+                        {
+                          "As much as we'd like to, we can't realistically get everyone's native apps set up"
+                        }
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-white/70 ml-9">
+                    <CheckCircle className="w-4 h-4" />
+                    <span className="text-sm">Required</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-start gap-3 mb-2">
+                    <Zap className="w-6 h-6 text-white/70 mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-white text-lg font-medium">
+                        Easy to Try
+                      </h4>
+                      <p className="text-white/50">
+                        We need an easy way to try out what you've built!
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-white/70 ml-9">
+                    <CheckCircle className="w-4 h-4" />
+                    <span className="text-sm">Required</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -264,9 +305,19 @@ export default function HomePage() {
                     desc: "Integrate real-time web search",
                   },
                   {
+                    icon: KeyIcon,
+                    title: "Bring Your Own Key",
+                    desc: "Use your own API keys",
+                  },
+                  {
+                    icon: SmartphoneIcon,
+                    title: "Mobile App",
+                    desc: "Why not ship mobile and web?",
+                  },
+                  {
                     icon: Sparkles,
-                    title: "Your Feature Ideas",
-                    desc: "Implement creative features of your own",
+                    title: "Anything Else",
+                    desc: "Get creative - we love unique ideas :)",
                   },
                 ].map((feature, index) => (
                   <div key={index} className="flex items-start gap-3">
