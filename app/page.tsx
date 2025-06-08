@@ -391,7 +391,10 @@ export default function HomePage() {
                 Register Now
               </Button>
             </Link>
-            <Link href="https://github.com/t3dotgg/t3-cloneathon">
+            <Link
+              href="https://github.com/t3dotgg/t3-cloneathon"
+              target="_blank"
+            >
               <Button
                 variant="outline"
                 size="lg"
