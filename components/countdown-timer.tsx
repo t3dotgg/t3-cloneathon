@@ -67,6 +67,14 @@ export function CountdownTimer() {
     return () => clearInterval(timer);
   }, []);
 
+  if (isExpired) {
+    return (
+      <div className="text-center text-white/50 text-sm border-2 border-white/30 p-3 rounded-xl w-fit mx-auto">
+        Competition ended
+      </div>
+    );
+  }
+
   if (!isMounted) {
     return (
       <div className="text-center">
@@ -92,12 +100,6 @@ export function CountdownTimer() {
           Deadline: June 17, 2025 at 12:00 PM PDT
         </div>
       </div>
-    );
-  }
-
-  if (isExpired) {
-    return (
-      <div className="text-center text-white/50 text-sm">Competition ended</div>
     );
   }
 
@@ -129,7 +131,7 @@ export function CountdownTimer() {
           <div className="text-xs text-white/40 mt-1 font-medium">sec</div>
         </div>
       </div>
-      <div className="text-xs text-white/40 mt-3 animate-in fade-in duration-500">
+      <div className="text-xs text-white/60 mt-3 animate-in fade-in duration-500">
         Deadline: June 17, 2025 at 12:00 PM PDT
       </div>
     </div>
