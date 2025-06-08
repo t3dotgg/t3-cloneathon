@@ -445,6 +445,72 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* FAQ Section */}
+        <div className="mb-20">
+          <h2 className="text-4xl font-bold text-white text-center mb-12">
+            Frequently Asked Questions (FAQ)
+          </h2>
+
+          <div className="max-w-4xl mx-auto bg-white/5 border border-white/10 rounded-xl p-8">
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-2">
+                  Can I submit work that I started before the competition
+                  started?
+                </h3>
+                <p className="text-white/70">
+                  Yes, absolutely. As long as it is fully open source, you can
+                  use whatever you've built in the past (we will judge it harder
+                  though)
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-2">
+                  Inference is expensive, can I require bringing your own key?
+                </h3>
+                <p className="text-white/70">
+                  Absolutely fine - just make sure that OpenRouter is one of the
+                  BYOK options (makes testing much easier for us)
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-2">
+                  Does it have to be a 1 to 1 T3 Chat clone?
+                </h3>
+                <p className="text-white/70">
+                  No! The more creative the better, but feel free to clone as
+                  well. Just, uh, make sure it's clear that it's not the ACTUAL
+                  T3 Chat
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-2">
+                  Do I have to build a web app?
+                </h3>
+                <p className="text-white/70">
+                  Web apps make things significantly easier for our judges to
+                  check out. If you ALSO build a mobile app and have an easy way
+                  for us to test it via TestFlight, we might check it out
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-2">
+                  Do all team members have to be 18+?
+                </h3>
+                <p className="text-white/70">
+                  {
+                    "As long as the submitter is 18+ and can file the required paperwork upon winning, all is good :)"
+                  }
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* CTA Section */}
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold text-white mb-4">
