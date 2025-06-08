@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
@@ -82,7 +83,7 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col items-center text-center">
-            <Users className="w-12 h-12 text-white/70 mb-4" />
+            <Code className="w-12 h-12 text-white/70 mb-4" />
             <h3 className="text-white text-2xl font-medium mb-2">
               Open Source
             </h3>
@@ -247,23 +248,43 @@ export default function HomePage() {
           <div className="max-w-3xl mx-auto bg-white/5 border border-white/10 rounded-xl p-8">
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { name: "Theo", role: "Creator of T3 Stack", twitter: "" },
-                { name: "Mark", role: "Developer & Creator", twitter: "" },
-                { name: "Julius", role: "Tech Expert", twitter: "" },
+                {
+                  name: "Theo",
+                  role: "Personality Hire",
+                  twitterHandle: "theo",
+                  avatar: "/avatars/theo-pic.jpg",
+                },
+                {
+                  name: "Mark",
+                  role: "Writes Theo's Code",
+                  twitterHandle: "r_marked",
+                  avatar: "/avatars/mark-pic.jpg",
+                },
+                {
+                  name: "Julius",
+                  role: "Actual Developer",
+                  twitterHandle: "jullerino",
+                  avatar: "/avatars/julius-pic.jpg",
+                },
               ].map((judge, index) => (
                 <div key={index} className="text-center">
                   <div className="w-20 h-20 bg-white/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white text-2xl font-bold">
-                      {judge.name[0]}
-                    </span>
+                    <Image
+                      src={judge.avatar}
+                      width={80}
+                      height={80}
+                      alt="Avatar"
+                      className="rounded-full"
+                    />
                   </div>
                   <h3 className="text-white font-medium">{judge.name}</h3>
                   <p className="text-white/50 text-sm mb-1">{judge.role}</p>
                   <Link
-                    href={judge.twitter || "#"}
+                    href={`https://x.com/${judge.twitterHandle}`}
                     className="text-white/70 hover:text-white text-sm"
+                    target="_blank"
                   >
-                    @{judge.name.toLowerCase()}
+                    @{judge.twitterHandle.toLowerCase()}
                   </Link>
                 </div>
               ))}
@@ -348,6 +369,19 @@ export default function HomePage() {
                 View GitHub
               </Button>
             </Link>
+          </div>
+
+          {/* Footer Links */}
+          <div className="mt-12 pt-8 border-t border-white/10 text-center">
+            <p className="text-white/40 text-sm">
+              By participating, you agree to our{" "}
+              <Link
+                href="/terms-and-conditions"
+                className="text-white/60 hover:text-white/80 underline underline-offset-2"
+              >
+                Terms and Conditions
+              </Link>
+            </p>
           </div>
         </div>
       </div>
