@@ -507,6 +507,15 @@ export default function HomePage() {
                   }
                 </p>
               </div>
+
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-2">
+                  Can I vibe code my submission?
+                </h3>
+                <p className="text-white/70">
+                  Sure, but, uh...good luck with that.
+                </p>
+              </div>
             </div>
           </div>
         </div>
