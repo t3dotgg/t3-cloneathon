@@ -47,25 +47,25 @@ export default function HomePage() {
         </div>
 
         {/* Competition Details */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
-          <div className="flex flex-col items-center text-center">
-            <Calendar className="w-12 h-12 text-white/70 mb-4" />
+        <div className="grid md:grid-cols-3 gap-8 mb-20 max-w-6xl mx-auto">
+          <div className="flex flex-col items-center text-center bg-gray-400/5 border border-white/10 rounded-xl p-5">
+            <Calendar className="w-10 h-10 text-white/70 mb-4" />
             <h3 className="text-white text-2xl font-medium mb-2">1 Week</h3>
             <p className="text-white/50">
               Complete your clone within the competition timeframe
             </p>
           </div>
 
-          <div className="flex flex-col items-center text-center">
-            <Trophy className="w-12 h-12 text-white/70 mb-4" />
+          <div className="flex flex-col items-center text-center bg-gray-400/5 border border-white/10 rounded-xl p-5">
+            <Trophy className="w-10 h-10 text-white/70 mb-4" />
             <h3 className="text-white text-2xl font-medium mb-2">$10,000+</h3>
             <p className="text-white/50">
               Total prize pool for winners and participants
             </p>
           </div>
 
-          <div className="flex flex-col items-center text-center">
-            <Code className="w-12 h-12 text-white/70 mb-4" />
+          <div className="flex flex-col items-center text-center bg-gray-400/5 border border-white/10 rounded-xl p-5">
+            <Code className="w-10 h-10 text-white/70 mb-4" />
             <h3 className="text-white text-2xl font-medium mb-2">
               Open Source
             </h3>
@@ -354,40 +354,44 @@ export default function HomePage() {
             <div className="space-y-6">
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Open Source Requirement:</strong> Submissions must be
-                  open source with a permissive license (MIT, Apache, BSD etc.)
-                  and hosted on GitHub
+                <p className="text-white/70">
+                  <strong className="text-white/90">
+                    Open Source Requirement:
+                  </strong>{" "}
+                  Submissions must be open source with a permissive license
+                  (MIT, Apache, BSD etc.) and hosted on GitHub
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Age Requirement:</strong> Must be 18+ to be eligible
-                  for prizes
+                <p className="text-white/70">
+                  <strong className="text-white/90">Age Requirement:</strong>{" "}
+                  Must be 18+ to be eligible for prizes
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Team Size:</strong> No more than 4 people per team
+                <p className="text-white/70">
+                  <strong className="text-white/90">Team Size:</strong> No more
+                  than 4 people per team
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Code of Conduct:</strong> Don't harass anyone please
+                <p className="text-white/70">
+                  <strong className="text-white/90">Code of Conduct:</strong>{" "}
+                  Don't harass anyone please
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Content Usage:</strong> Theo might use your submission
-                  for content btw
+                <p className="text-white/70">
+                  <strong className="text-white/90">Content Usage:</strong> Theo
+                  might use your submission for content btw
                 </p>
               </div>
             </div>
