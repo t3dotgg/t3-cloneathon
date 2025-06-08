@@ -17,7 +17,7 @@ const calculateTimeLeft = (): { timeLeft: TimeLeft; isExpired: boolean } => {
   if (difference > 0) {
     const days = Math.floor(difference / (1000 * 60 * 60 * 24));
     const hours = Math.floor(
-      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
     const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((difference % (1000 * 60)) / 1000);
@@ -70,25 +70,22 @@ export function CountdownTimer() {
   if (!isMounted) {
     return (
       <div className="text-center">
-        <div className="text-white/50 text-sm mb-2">
-          Deadline: June 17, 2025 • 12:00 PM PDT
-        </div>
-        <div className="flex justify-center gap-6 text-white/70 opacity-0">
-          <div className="text-center">
-            <div className="text-lg font-medium">--</div>
-            <div className="text-xs text-white/40">days</div>
+        <div className="flex justify-center gap-8 text-white/70 opacity-0">
+          <div className="text-center bg-white/5 rounded-lg p-3 min-w-[60px]">
+            <div className="text-2xl font-bold drop-shadow-sm">--</div>
+            <div className="text-xs text-white/40 mt-1">days</div>
           </div>
-          <div className="text-center">
-            <div className="text-lg font-medium">--</div>
-            <div className="text-xs text-white/40">hrs</div>
+          <div className="text-center bg-white/5 rounded-lg p-3 min-w-[60px]">
+            <div className="text-2xl font-bold drop-shadow-sm">--</div>
+            <div className="text-xs text-white/40 mt-1">hrs</div>
           </div>
-          <div className="text-center">
-            <div className="text-lg font-medium">--</div>
-            <div className="text-xs text-white/40">min</div>
+          <div className="text-center bg-white/5 rounded-lg p-3 min-w-[60px]">
+            <div className="text-2xl font-bold drop-shadow-sm">--</div>
+            <div className="text-xs text-white/40 mt-1">min</div>
           </div>
-          <div className="text-center">
-            <div className="text-lg font-medium">--</div>
-            <div className="text-xs text-white/40">sec</div>
+          <div className="text-center bg-white/5 rounded-lg p-3 min-w-[60px]">
+            <div className="text-2xl font-bold drop-shadow-sm">--</div>
+            <div className="text-xs text-white/40 mt-1">sec</div>
           </div>
         </div>
       </div>
@@ -103,26 +100,34 @@ export function CountdownTimer() {
 
   return (
     <div className="text-center">
-      <div className="text-white/50 text-sm mb-2">
-        Deadline: June 17, 2025 • 12:00 PM PDT
+      <div className="flex justify-center gap-8 text-white/80 animate-in fade-in duration-500">
+        <div className="text-center bg-white/5 rounded-lg p-3 min-w-[60px] shadow-lg">
+          <div className="text-2xl font-bold drop-shadow-sm">
+            {timeLeft.days}
+          </div>
+          <div className="text-xs text-white/40 mt-1 font-medium">days</div>
+        </div>
+        <div className="text-center bg-white/5 rounded-lg p-3 min-w-[60px] shadow-lg">
+          <div className="text-2xl font-bold drop-shadow-sm">
+            {timeLeft.hours}
+          </div>
+          <div className="text-xs text-white/40 mt-1 font-medium">hrs</div>
+        </div>
+        <div className="text-center bg-white/5 rounded-lg p-3 min-w-[60px] shadow-lg">
+          <div className="text-2xl font-bold drop-shadow-sm">
+            {timeLeft.minutes}
+          </div>
+          <div className="text-xs text-white/40 mt-1 font-medium">min</div>
+        </div>
+        <div className="text-center bg-white/5 rounded-lg p-3 min-w-[60px] shadow-lg">
+          <div className="text-2xl font-bold drop-shadow-sm">
+            {timeLeft.seconds}
+          </div>
+          <div className="text-xs text-white/40 mt-1 font-medium">sec</div>
+        </div>
       </div>
-      <div className="flex justify-center gap-6 text-white/70 animate-in fade-in duration-500">
-        <div className="text-center">
-          <div className="text-lg font-medium">{timeLeft.days}</div>
-          <div className="text-xs text-white/40">days</div>
-        </div>
-        <div className="text-center">
-          <div className="text-lg font-medium">{timeLeft.hours}</div>
-          <div className="text-xs text-white/40">hrs</div>
-        </div>
-        <div className="text-center">
-          <div className="text-lg font-medium">{timeLeft.minutes}</div>
-          <div className="text-xs text-white/40">min</div>
-        </div>
-        <div className="text-center">
-          <div className="text-lg font-medium">{timeLeft.seconds}</div>
-          <div className="text-xs text-white/40">sec</div>
-        </div>
+      <div className="text-xs text-white/40 mt-3">
+        Deadline: June 17, 2025 at 12:00 PM PDT
       </div>
     </div>
   );

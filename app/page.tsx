@@ -36,31 +36,12 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Build an open source clone of T3 Chat in just one week. Compete for
-            prizes and showcase your skills to the community.
+            It's like a hackathon, but everyone's building a T3 Chat clone.
           </p>
 
           {/* Subtle Countdown Timer */}
           <div className="mb-8">
             <CountdownTimer />
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Link href="/register">
-              <Button
-                size="lg"
-                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 text-lg"
-              >
-                Join the Competition
-              </Button>
-            </Link>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white/20 text-white hover:bg-white/5 px-8 py-3 text-lg"
-            >
-              View Rules
-            </Button>
           </div>
         </div>
 
@@ -76,7 +57,7 @@ export default function HomePage() {
 
           <div className="flex flex-col items-center text-center">
             <Trophy className="w-12 h-12 text-white/70 mb-4" />
-            <h3 className="text-white text-2xl font-medium mb-2">$6,000+</h3>
+            <h3 className="text-white text-2xl font-medium mb-2">$10,000+</h3>
             <p className="text-white/50">
               Total prize pool for winners and participants
             </p>
@@ -99,27 +80,76 @@ export default function HomePage() {
             Prizes & Rewards
           </h2>
 
-          <div className="max-w-3xl mx-auto bg-white/5 border border-white/10 rounded-xl p-8">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <Trophy className="w-8 h-8 text-white/70 mx-auto mb-2" />
-                <h3 className="text-white font-medium mb-1">1st Place</h3>
-                <div className="text-3xl font-bold text-white">$5,000</div>
+          <div className="max-w-5xl mx-auto">
+            {/* Main Prize Pool */}
+            <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-2xl p-8 mb-8">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  Cash Prizes
+                </h3>
+                <p className="text-white/70">
+                  Awarded to the top 3 submissions
+                </p>
               </div>
 
-              <div className="text-center">
-                <Trophy className="w-8 h-8 text-white/70 mx-auto mb-2" />
-                <h3 className="text-white font-medium mb-1">2nd Place</h3>
-                <div className="text-3xl font-bold text-white">$1,000</div>
-              </div>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 text-center relative">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold">
+                      🥇 WINNER
+                    </div>
+                  </div>
+                  <Trophy className="w-10 h-10 text-yellow-400 mx-auto mb-3 mt-2" />
+                  <h4 className="text-white font-bold mb-2">1st Place</h4>
+                  <div className="text-4xl font-bold text-white mb-1">
+                    $5,000
+                  </div>
+                  <p className="text-white/60 text-sm">Grand Prize Winner</p>
+                </div>
 
-              <div className="text-center">
-                <Users className="w-8 h-8 text-white/70 mx-auto mb-2" />
-                <h3 className="text-white font-medium mb-1">Top 8</h3>
-                <div className="text-xl font-bold text-white">
-                  1 Year Free T3 Chat
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 text-center relative">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-gray-300 text-black px-3 py-1 rounded-full text-xs font-bold">
+                      🥈 RUNNER-UP
+                    </div>
+                  </div>
+                  <Trophy className="w-10 h-10 text-gray-300 mx-auto mb-3 mt-2" />
+                  <h4 className="text-white font-bold mb-2">2nd Place</h4>
+                  <div className="text-3xl font-bold text-white mb-1">
+                    $2,000
+                  </div>
+                  <p className="text-white/60 text-sm">Second Place Prize</p>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 text-center relative">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-amber-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                      🥉 THIRD
+                    </div>
+                  </div>
+                  <Trophy className="w-10 h-10 text-amber-600 mx-auto mb-3 mt-2" />
+                  <h4 className="text-white font-bold mb-2">3rd Place</h4>
+                  <div className="text-3xl font-bold text-white mb-1">
+                    $1,000
+                  </div>
+                  <p className="text-white/60 text-sm">Third Place Prize</p>
                 </div>
               </div>
+            </div>
+
+            {/* Community Prize */}
+            <div className="bg-white/5 border border-white/10 rounded-xl p-8 text-center">
+              <Users className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">
+                Top 8 Finalists
+              </h3>
+              <div className="text-2xl font-bold text-purple-400 mb-2">
+                1 Year Free T3 Chat
+              </div>
+              <p className="text-white/60">
+                All finalists in the top 8 receive complimentary access to T3
+                Chat
+              </p>
             </div>
           </div>
         </div>

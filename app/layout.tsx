@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "T3 Chat Cloneathon",
   description:
-    "Build an open source clone of T3 Chat and compete for over $6,000 in prizes.",
+    "Build an open source clone of T3 Chat and compete for over $10,000 in prizes.",
   icons: {
     icon: "/favicon.svg",
   },
