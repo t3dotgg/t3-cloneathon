@@ -286,9 +286,16 @@ export default function HomePage() {
 
         {/* Judges Section */}
         <div className="mb-20">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
+          <h2 className="text-4xl font-bold text-white text-center mb-4">
             Meet the Judges
           </h2>
+
+          <div className="max-w-4xl mx-auto">
+            <p className="text-white/70 text-lg mb-8 text-center">
+              These nerds will decide the winners. They have no formal criteria,
+              just vibes.
+            </p>
+          </div>
 
           <div className="max-w-3xl mx-auto bg-white/5 border border-white/10 rounded-xl p-8">
             <div className="grid md:grid-cols-3 gap-8">
