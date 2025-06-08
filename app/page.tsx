@@ -13,6 +13,7 @@ import {
   Share,
   Zap,
   Sparkles,
+  CloudUploadIcon,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -214,23 +215,23 @@ export default function HomePage() {
               <div className="grid md:grid-cols-2 gap-y-6 gap-x-8">
                 {[
                   {
-                    icon: ImageIcon,
-                    title: "Upload Image Support",
-                    desc: "Allow users to upload and analyze images",
+                    icon: CloudUploadIcon,
+                    title: "Attachment Support",
+                    desc: "Allow users to upload files (images and pdfs)",
                   },
                   {
-                    icon: Sparkles,
-                    title: "Generate Image Support",
+                    icon: ImageIcon,
+                    title: "Image Generation Support",
                     desc: "AI-powered image generation capabilities",
                   },
                   {
                     icon: Code,
-                    title: "Code Syntax Highlighting",
+                    title: "Syntax Highlighting",
                     desc: "Beautiful code formatting and highlighting",
                   },
                   {
                     icon: Zap,
-                    title: "Resumable Stream",
+                    title: "Resumable Streams",
                     desc: "Continue generation after page refresh",
                   },
                   {
