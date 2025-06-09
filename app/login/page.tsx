@@ -3,9 +3,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,49 +19,40 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const registerSchema = z.object({
+const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 
-type RegisterFormInputs = z.infer<typeof registerSchema>;
+type LoginFormInputs = z.infer<typeof loginSchema>;
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterFormInputs>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     setError(null);
-    setSuccess(null);
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      const result = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false, // Handle redirect manually
       });
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        setError(result.message || "Registration failed");
-      } else {
-        setSuccess("Registration successful! Redirecting to login...");
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
+      if (result?.error) {
+        setError(result.error === "CredentialsSignin" ? "Invalid email or password" : result.error);
+      } else if (result?.ok) {
+        router.push("/chat"); // Redirect to a protected page
       }
     } catch (err) {
-      console.error("Registration failed:", err);
+      console.error("Login failed:", err);
       setError("An unexpected error occurred. Please try again.");
     }
   };
@@ -70,8 +61,8 @@ export default function RegisterPage() {
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Register</CardTitle>
-          <CardDescription>Create a new account.</CardDescription>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>Enter your credentials to access your account.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -101,20 +92,17 @@ export default function RegisterPage() {
             {error && (
               <p className="text-sm text-destructive">{error}</p>
             )}
-            {success && (
-              <p className="text-sm text-green-600">{success}</p>
-            )}
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Registering..." : "Register"}
+              {isSubmitting ? "Logging in..." : "Login"}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="text-sm text-center">
           <p>
-            Already have an account?{" "}
-            <Link href="/login" className="underline">
-              Login
-            </Link>
+            Don&apos;t have an account?{" "}
+            <a href="/register" className="underline">
+              Register
+            </a>
           </p>
         </CardFooter>
       </Card>

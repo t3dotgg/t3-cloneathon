@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String   // Will store hashed password
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt // @updatedAt will auto-update this timestamp
+
+  messages ChatMessage[] // Relation to ChatMessage model
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  content   String
+  role      Role     // Enum: USER or ASSISTANT
+  createdAt DateTime @default(now())
+  userId    String   // Foreign key to User model
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId]) // Add index for querying messages by user
+}
+
+enum Role {
+  USER
+  ASSISTANT
+}
