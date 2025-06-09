@@ -1,3 +1,4 @@
+import { RegisterSurvey } from "@/components/register-survey";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -15,8 +16,9 @@ export default function Registration() {
       <div className="text-center">
         <h1 className="text-4xl font-bold text-white mb-4">Coming Soon</h1>
         <p className="text-gray-400 text-lg">
-          Check back later for more information on registering
+          You spent 10 days building a chat, you are going to spend a minute filling this form ? Right ?
         </p>
+        <RegisterSurvey />
       </div>
     </div>
   );
