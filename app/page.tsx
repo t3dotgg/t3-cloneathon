@@ -20,71 +20,72 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Container from "@/components/container";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-white/5 text-white/70 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" />
-            Open Source Competition
-          </div>
+      <Container>
+        {/* Hero Section */}
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-white/5 text-white/70 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4" />
+              Open Source Competition
+            </div>
 
-          <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-            T3 Chat
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent block">
-              Cloneathon
-            </span>
-          </h1>
+            <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+              T3 Chat
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent block">
+                Cloneathon
+              </span>
+            </h1>
 
-          <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-            It's like a hackathon, but everyone's building a T3 Chat clone.
-          </p>
-
-          {/* Subtle Countdown Timer */}
-          <div className="mb-8">
-            <CountdownTimer />
-          </div>
-        </div>
-
-        {/* Competition Details */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
-          <div className="flex flex-col items-center text-center">
-            <Calendar className="w-12 h-12 text-white/70 mb-4" />
-            <h3 className="text-white text-2xl font-medium mb-2">1 Week</h3>
-            <p className="text-white/50">
-              Complete your clone within the competition timeframe
+            <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto leading-relaxed">
+              It's like a hackathon, but everyone's building a T3 Chat clone.
             </p>
+
+            {/* Subtle Countdown Timer */}
+            <div className="mb-8">
+              <CountdownTimer />
+            </div>
           </div>
 
-          <div className="flex flex-col items-center text-center">
-            <Trophy className="w-12 h-12 text-white/70 mb-4" />
-            <h3 className="text-white text-2xl font-medium mb-2">$10,000+</h3>
-            <p className="text-white/50">
-              Total prize pool for winners and participants
-            </p>
+          {/* Competition Details */}
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
+            <div className="flex flex-col items-center text-center">
+              <Calendar className="w-12 h-12 text-white/70 mb-4" />
+              <h3 className="text-white text-2xl font-medium mb-2">1 Week</h3>
+              <p className="text-white/50">
+                Complete your clone within the competition timeframe
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+              <Trophy className="w-12 h-12 text-white/70 mb-4" />
+              <h3 className="text-white text-2xl font-medium mb-2">$10,000+</h3>
+              <p className="text-white/50">
+                Total prize pool for winners and participants
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+              <Code className="w-12 h-12 text-white/70 mb-4" />
+              <h3 className="text-white text-2xl font-medium mb-2">
+                Open Source
+              </h3>
+              <p className="text-white/50">
+                All submissions must be open source and publicly available
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-col items-center text-center">
-            <Code className="w-12 h-12 text-white/70 mb-4" />
-            <h3 className="text-white text-2xl font-medium mb-2">
-              Open Source
-            </h3>
-            <p className="text-white/50">
-              All submissions must be open source and publicly available
-            </p>
-          </div>
-        </div>
+          {/* Prizes Section */}
+          <div className="mb-20">
+            <h2 className="text-4xl font-bold text-white text-center mb-12">
+              Prizes & Rewards
+            </h2>
 
-        {/* Prizes Section */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
-            Prizes & Rewards
-          </h2>
-
-          <div className="max-w-5xl mx-auto">
             {/* Main Prize Pool */}
             <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-2xl p-8 mb-8">
               <div className="text-center mb-8">
@@ -156,15 +157,13 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-        </div>
 
-        {/* Requirements Section */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-white text-center mb-4">
-            Requirements
-          </h2>
+          {/* Requirements Section */}
+          <div className="mb-20">
+            <h2 className="text-4xl font-bold text-white text-center mb-4">
+              Requirements
+            </h2>
 
-          <div className="max-w-4xl mx-auto">
             <p className="text-white/70 text-lg mb-8 text-center">
               Build a cool AI chat app. Have fun with it. Make it look and feel
               however you like.
@@ -333,239 +332,237 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Judges Section */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-white text-center mb-4">
-            Meet the Judges
-          </h2>
+          {/* Judges Section */}
+          <div className="mb-20">
+            <h2 className="text-4xl font-bold text-white text-center mb-4">
+              Meet the Judges
+            </h2>
 
-          <div className="max-w-4xl mx-auto">
             <p className="text-white/70 text-lg mb-8 text-center">
               These nerds will decide the winners. They have no formal criteria,
               just vibes.
             </p>
-          </div>
 
-          <div className="max-w-3xl mx-auto bg-white/5 border border-white/10 rounded-xl p-8">
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "Theo",
-                  role: "Personality Hire",
-                  twitterHandle: "theo",
-                  avatar: "/avatars/theo-pic.jpg",
-                },
-                {
-                  name: "Mark",
-                  role: "Writes Theo's Code",
-                  twitterHandle: "r_marked",
-                  avatar: "/avatars/mark-pic.jpg",
-                },
-                {
-                  name: "Julius",
-                  role: "Actual Developer",
-                  twitterHandle: "jullerino",
-                  avatar: "/avatars/julius-pic.jpg",
-                },
-              ].map((judge, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-20 h-20 bg-white/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Image
-                      src={judge.avatar}
-                      width={80}
-                      height={80}
-                      alt="Avatar"
-                      className="rounded-full"
-                    />
-                  </div>
-                  <h3 className="text-white font-medium">{judge.name}</h3>
-                  <p className="text-white/50 text-sm mb-1">{judge.role}</p>
-                  <Link
-                    href={`https://x.com/${judge.twitterHandle}`}
-                    className="text-white/70 hover:text-white text-sm"
-                    target="_blank"
-                  >
-                    @{judge.twitterHandle.toLowerCase()}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Rules Section */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
-            Competition Rules
-          </h2>
-
-          <div className="max-w-4xl mx-auto bg-white/5 border border-white/10 rounded-xl p-8">
-            <div className="space-y-6">
-              <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Open Source Requirement:</strong> Submissions must be
-                  open source with a permissive license (MIT, Apache, BSD etc.)
-                  and hosted on GitHub
-                </p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Age Requirement:</strong> Must be 18+ to be eligible
-                  for prizes
-                </p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Team Size:</strong> No more than 4 people per team
-                </p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Code of Conduct:</strong> Don't harass anyone please
-                </p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                <p className="text-white/90">
-                  <strong>Content Usage:</strong> Theo might use your submission
-                  for content btw
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* FAQ Section */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
-            Frequently Asked Questions (FAQ)
-          </h2>
-
-          <div className="max-w-4xl mx-auto bg-white/5 border border-white/10 rounded-xl p-8">
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-white font-semibold text-lg mb-2">
-                  Can I submit work that I started before the competition
-                  started?
-                </h3>
-                <p className="text-white/70">
-                  Yes, absolutely. As long as it is fully open source, you can
-                  use whatever you've built in the past (we will judge it harder
-                  though)
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-white font-semibold text-lg mb-2">
-                  Inference is expensive, can I require bringing your own key?
-                </h3>
-                <p className="text-white/70">
-                  Absolutely fine - just make sure that OpenRouter is one of the
-                  BYOK options (makes testing much easier for us)
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-white font-semibold text-lg mb-2">
-                  Does it have to be a 1 to 1 T3 Chat clone?
-                </h3>
-                <p className="text-white/70">
-                  No! The more creative the better, but feel free to clone as
-                  well. Just, uh, make sure it's clear that it's not the ACTUAL
-                  T3 Chat
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-white font-semibold text-lg mb-2">
-                  Do I have to build a web app?
-                </h3>
-                <p className="text-white/70">
-                  Web apps make things significantly easier for our judges to
-                  check out. If you ALSO build a mobile app and have an easy way
-                  for us to test it via TestFlight, we might check it out
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-white font-semibold text-lg mb-2">
-                  Do all team members have to be 18+?
-                </h3>
-                <p className="text-white/70">
+            <div className="px-48 bg-white/5 border border-white/10 rounded-xl p-8">
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
                   {
-                    "As long as the submitter is 18+ and can file the required paperwork upon winning, all is good :)"
-                  }
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-white font-semibold text-lg mb-2">
-                  Can I vibe code my submission?
-                </h3>
-                <p className="text-white/70">
-                  Sure, but, uh...good luck with that.
-                </p>
+                    name: "Theo",
+                    role: "Personality Hire",
+                    twitterHandle: "theo",
+                    avatar: "/avatars/theo-pic.jpg",
+                  },
+                  {
+                    name: "Mark",
+                    role: "Writes Theo's Code",
+                    twitterHandle: "r_marked",
+                    avatar: "/avatars/mark-pic.jpg",
+                  },
+                  {
+                    name: "Julius",
+                    role: "Actual Developer",
+                    twitterHandle: "jullerino",
+                    avatar: "/avatars/julius-pic.jpg",
+                  },
+                ].map((judge, index) => (
+                  <div key={index} className="text-center">
+                    <div className="w-20 h-20 bg-white/10 rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <Image
+                        src={judge.avatar}
+                        width={80}
+                        height={80}
+                        alt="Avatar"
+                        className="rounded-full"
+                      />
+                    </div>
+                    <h3 className="text-white font-medium">{judge.name}</h3>
+                    <p className="text-white/50 text-sm mb-1">{judge.role}</p>
+                    <Link
+                      href={`https://x.com/${judge.twitterHandle}`}
+                      className="text-white/70 hover:text-white text-sm"
+                      target="_blank"
+                    >
+                      @{judge.twitterHandle.toLowerCase()}
+                    </Link>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
 
-        {/* CTA Section */}
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Build?
-          </h2>
-          <p className="text-white/70 text-lg mb-8">
-            Join the T3 Chat Cloneathon and showcase your development skills.
-            Registration opens soon!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/register">
-              <Button
-                size="lg"
-                className="bg-purple-600 hover:bg-purple-700 text-white"
-              >
-                Register Now
-              </Button>
-            </Link>
-            <Link
-              href="https://github.com/t3dotgg/t3-cloneathon"
-              target="_blank"
-            >
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white/20 text-white hover:bg-white/5"
-              >
-                View GitHub
-              </Button>
-            </Link>
+          {/* Rules Section */}
+          <div className="mb-20">
+            <h2 className="text-4xl font-bold text-white text-center mb-12">
+              Competition Rules
+            </h2>
+
+            <div className="bg-white/5 border border-white/10 rounded-xl p-8">
+              <div className="space-y-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                  <p className="text-white/90">
+                    <strong>Open Source Requirement:</strong> Submissions must
+                    be open source with a permissive license (MIT, Apache, BSD
+                    etc.) and hosted on GitHub
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                  <p className="text-white/90">
+                    <strong>Age Requirement:</strong> Must be 18+ to be eligible
+                    for prizes
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                  <p className="text-white/90">
+                    <strong>Team Size:</strong> No more than 4 people per team
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                  <p className="text-white/90">
+                    <strong>Code of Conduct:</strong> Don't harass anyone please
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                  <p className="text-white/90">
+                    <strong>Content Usage:</strong> Theo might use your
+                    submission for content btw
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Footer Links */}
-          <div className="mt-12 pt-8 border-t border-white/10 text-center">
-            <p className="text-white/40 text-sm">
-              By participating, you agree to our{" "}
-              <Link
-                href="/terms-and-conditions"
-                className="text-white/60 hover:text-white/80 underline underline-offset-2"
-              >
-                Terms and Conditions
-              </Link>
+          {/* FAQ Section */}
+          <div className="mb-20">
+            <h2 className="text-4xl font-bold text-white text-center mb-12">
+              Frequently Asked Questions (FAQ)
+            </h2>
+
+            <div className="bg-white/5 border border-white/10 rounded-xl p-8">
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-white font-semibold text-lg mb-2">
+                    Can I submit work that I started before the competition
+                    started?
+                  </h3>
+                  <p className="text-white/70">
+                    Yes, absolutely. As long as it is fully open source, you can
+                    use whatever you've built in the past (we will judge it
+                    harder though)
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-semibold text-lg mb-2">
+                    Inference is expensive, can I require bringing your own key?
+                  </h3>
+                  <p className="text-white/70">
+                    Absolutely fine - just make sure that OpenRouter is one of
+                    the BYOK options (makes testing much easier for us)
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-semibold text-lg mb-2">
+                    Does it have to be a 1 to 1 T3 Chat clone?
+                  </h3>
+                  <p className="text-white/70">
+                    No! The more creative the better, but feel free to clone as
+                    well. Just, uh, make sure it's clear that it's not the
+                    ACTUAL T3 Chat
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-semibold text-lg mb-2">
+                    Do I have to build a web app?
+                  </h3>
+                  <p className="text-white/70">
+                    Web apps make things significantly easier for our judges to
+                    check out. If you ALSO build a mobile app and have an easy
+                    way for us to test it via TestFlight, we might check it out
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-semibold text-lg mb-2">
+                    Do all team members have to be 18+?
+                  </h3>
+                  <p className="text-white/70">
+                    {
+                      "As long as the submitter is 18+ and can file the required paperwork upon winning, all is good :)"
+                    }
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-semibold text-lg mb-2">
+                    Can I vibe code my submission?
+                  </h3>
+                  <p className="text-white/70">
+                    Sure, but, uh...good luck with that.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Ready to Build?
+            </h2>
+            <p className="text-white/70 text-lg mb-8">
+              Join the T3 Chat Cloneathon and showcase your development skills.
+              Registration opens soon!
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/register">
+                <Button
+                  size="lg"
+                  className="bg-purple-600 hover:bg-purple-700 text-white"
+                >
+                  Register Now
+                </Button>
+              </Link>
+              <Link
+                href="https://github.com/t3dotgg/t3-cloneathon"
+                target="_blank"
+              >
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-white/20 text-white hover:bg-white/5"
+                >
+                  View GitHub
+                </Button>
+              </Link>
+            </div>
+
+            {/* Footer Links */}
+            <div className="mt-12 pt-8 border-t border-white/10 text-center">
+              <p className="text-white/40 text-sm">
+                By participating, you agree to our{" "}
+                <Link
+                  href="/terms-and-conditions"
+                  className="text-white/60 hover:text-white/80 underline underline-offset-2"
+                >
+                  Terms and Conditions
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }
