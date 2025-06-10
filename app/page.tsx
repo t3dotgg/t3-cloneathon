@@ -52,7 +52,7 @@ export default function HomePage() {
         {/* Competition Details */}
         <div className="grid md:grid-cols-3 gap-8 mb-20">
           <div className="flex flex-col items-center text-center">
-            <Calendar className="w-12 h-12 text-white/70 mb-4" />
+            <Calendar className="w-12 h-12 text-white opacity-70 mb-4" />
             <h3 className="text-white text-2xl font-medium mb-2">1 Week</h3>
             <p className="text-white/50">
               Complete your clone within the competition timeframe
@@ -60,7 +60,7 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col items-center text-center">
-            <Trophy className="w-12 h-12 text-white/70 mb-4" />
+            <Trophy className="w-12 h-12 text-white opacity-70 mb-4" />
             <h3 className="text-white text-2xl font-medium mb-2">$10,000+</h3>
             <p className="text-white/50">
               Total prize pool for winners and participants
@@ -68,7 +68,7 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col items-center text-center">
-            <Code className="w-12 h-12 text-white/70 mb-4" />
+            <Code className="w-12 h-12 text-white opacity-70 mb-4" />
             <h3 className="text-white text-2xl font-medium mb-2">
               Open Source
             </h3>
