@@ -4,7 +4,7 @@ import ProjectSubmissionForm from "./ProjectSubmissionForm";
 
 export default function Registration() {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center relative">
+    <div className="min-h-screen bg-black flex items-center justify-center relative w-screen">
       <ProjectSubmissionForm />
     </div>
   );

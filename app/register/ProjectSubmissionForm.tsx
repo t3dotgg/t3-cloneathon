@@ -111,8 +111,13 @@ export default function ProjectSubmissionForm() {
   } = useForm<ProjectFormData>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
+      projectName: '',
+      elevatorPitch: '',
+      aboutProject: '',
       builtWith: [],
       links: [{ label: '', url: '' }],
+      githubUrl: '',
+      videoDemoLink: '',
       teammates: [],
       imageGallery: [],
       usedT3: false,
@@ -172,8 +177,8 @@ export default function ProjectSubmissionForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4 min-w-full">
+      <div className="min-w-full mx-auto">
         {/* Progress Bar */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -299,6 +304,8 @@ export default function ProjectSubmissionForm() {
 
 // Step Components
 function Step1({ control, errors, setValue }: any) {
+
+    
   return (
     <div className="space-y-6">
       <div>
@@ -312,7 +319,7 @@ function Step1({ control, errors, setValue }: any) {
             <input
               {...field}
               type="text"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
               placeholder="Enter your project name"
             />
           )}
@@ -335,7 +342,7 @@ function Step1({ control, errors, setValue }: any) {
             <textarea
               {...field}
               rows={3}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
               placeholder="Describe your project in one compelling sentence"
             />
           )}
@@ -368,12 +375,15 @@ function Step1({ control, errors, setValue }: any) {
           name="aboutProject"
           control={control}
           render={({ field }) => (
+            <div>
             <textarea
               {...field}
               rows={5}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
               placeholder="Provide a detailed description of your project..."
             />
+            <p className='text-xs text-gray-500 mt-1'>{field.value.length ? `${field.value.length}/500` : '0/500'}</p>
+            </div>
           )}
         />
         {errors.aboutProject && (
@@ -401,7 +411,7 @@ function Step2({ control, errors, watchedFields, setValue }: any) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-black">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-3">
           Built With *
@@ -549,7 +559,7 @@ function Step2({ control, errors, watchedFields, setValue }: any) {
 
 function Step3({ control, errors }: any) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-black">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           When did you start this project? *
@@ -603,7 +613,7 @@ function Step3({ control, errors }: any) {
 
 function Step4({ control, errors }: any) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-black">
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
