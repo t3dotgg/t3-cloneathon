@@ -259,6 +259,10 @@ export default function Registration() {
                 <Label htmlFor="hostedSiteUrl" className="text-white">
                   Hosted Site URL
                 </Label>
+                <p className="text-sm text-white/60 mb-2">
+                  If your project is hosted somewhere we can easily use it, link
+                  it here
+                </p>
                 <Input
                   id="hostedSiteUrl"
                   type="url"
@@ -279,6 +283,11 @@ export default function Registration() {
                 <Label htmlFor="videoOverviewUrl" className="text-white">
                   Video Overview URL
                 </Label>
+                <p className="text-sm text-white/60 mb-2">
+                  A 1-2 minute overview of what you built. Host on YouTube,
+                  Dropbox or Google Drive. Doesn't have to be elaborate, just
+                  show off your work a bit!
+                </p>
                 <Input
                   id="videoOverviewUrl"
                   type="url"
@@ -355,7 +364,8 @@ export default function Registration() {
                     </Link>
                   </Label>
                   <p className="text-xs text-white/60">
-                    You must agree to the terms and conditions to submit your entry.
+                    You must agree to the terms and conditions to submit your
+                    entry.
                   </p>
                 </div>
               </div>
