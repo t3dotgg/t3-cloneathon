@@ -26,7 +26,7 @@ export const createOrUpdateSubmission = mutation({
     const submission = await ctx.db
       .query("submissions")
       .filter((q) => q.eq(q.field("userId"), identity.subject))
-      .first();
+      .unique();
 
     if (submission) {
       await ctx.db.patch(submission._id, {
@@ -55,6 +55,6 @@ export const getSubmission = query({
     return await ctx.db
       .query("submissions")
       .filter((q) => q.eq(q.field("userId"), identity.subject))
-      .first();
+      .unique();
   },
 });
