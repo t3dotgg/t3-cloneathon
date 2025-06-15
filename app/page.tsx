@@ -47,6 +47,18 @@ export default function HomePage() {
           <div className="mb-8">
             <CountdownTimer />
           </div>
+
+          {/* Register Button */}
+          <div className="mb-8">
+            <Link href="/register">
+              <Button
+                size="lg"
+                className="bg-purple-600 hover:bg-purple-700 text-white"
+              >
+                Register Now
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Competition Details */}
