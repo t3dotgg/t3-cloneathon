@@ -149,18 +149,48 @@ export default function Registration() {
             Submit your T3 Chat clone and compete for prizes
           </p>
           {currentSubmission && (
-            <Badge variant="secondary" className="mt-2">
-              {currentSubmission.status === "submitted" ? "Submitted" : "Draft"}
+            <Badge 
+              variant={currentSubmission.status === "submitted" ? "default" : "secondary"} 
+              className={`mt-2 ${
+                currentSubmission.status === "submitted" 
+                  ? "bg-green-600 hover:bg-green-700 text-white" 
+                  : ""
+              }`}
+            >
+              {currentSubmission.status === "submitted" ? "✅ Submitted" : "📝 Draft"}
             </Badge>
           )}
         </div>
 
-        <Card className="bg-white/5 border-white/10">
+        {currentSubmission?.status === "submitted" && (
+          <div className="bg-green-600/20 border border-green-500/30 rounded-xl p-6 mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+                <span className="text-white text-xl">✅</span>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold text-lg">Submission Complete!</h3>
+                <p className="text-green-200/80">
+                  Your project has been successfully submitted to the T3 Chat Cloneathon. 
+                  You can still update your submission anytime before the deadline.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <Card className={`${
+          currentSubmission?.status === "submitted" 
+            ? "bg-white/5 border-green-500/20" 
+            : "bg-white/5 border-white/10"
+        }`}>
           <CardHeader>
             <CardTitle className="text-white">Project Submission</CardTitle>
             <CardDescription className="text-white/70">
-              Fill out the form below to register your project for the
-              competition
+              {currentSubmission?.status === "submitted" 
+                ? "Your submission is complete! You can still make updates if needed."
+                : "Fill out the form below to register your project for the competition"
+              }
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -449,7 +479,12 @@ export default function Registration() {
                   }
                   className="bg-purple-600 hover:bg-purple-700 text-white"
                 >
-                  {isSubmitting ? "Submitting..." : "Submit Final Entry"}
+                  {isSubmitting 
+                    ? "Updating..." 
+                    : currentSubmission?.status === "submitted" 
+                      ? "Update Submission" 
+                      : "Submit Final Entry"
+                  }
                 </Button>
               </div>
             </form>
