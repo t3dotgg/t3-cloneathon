@@ -14,6 +14,7 @@ export default defineSchema({
 
     description: v.optional(v.string()),
     favoriteParts: v.optional(v.string()),
+    testingInstructions: v.optional(v.string()),
 
     createdAt: v.number(),
     updatedAt: v.number(),

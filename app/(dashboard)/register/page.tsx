@@ -320,7 +320,7 @@ export default function Registration() {
                     }))
                   }
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-24"
-                  placeholder="Describe your project, key features, and what makes it unique..."
+                  placeholder="Describe your project, key features, and what makes it unique"
                 />
               </div>
 
@@ -339,7 +339,7 @@ export default function Registration() {
                     }))
                   }
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-24"
-                  placeholder="Tell us about the features or implementation details you're most proud of..."
+                  placeholder="Tell us about the features or implementation details you're most proud of!"
                 />
               </div>
 
@@ -349,7 +349,8 @@ export default function Registration() {
                   Testing Instructions
                 </Label>
                 <p className="text-sm text-white/60 mb-2">
-                  Give us instructions for the simplest way to try out your submission
+                  Give us instructions for the simplest way to try out your
+                  submission
                 </p>
                 <Textarea
                   id="testingInstructions"
@@ -361,7 +362,9 @@ export default function Registration() {
                     }))
                   }
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-24"
-                  placeholder="1. Visit the hosted URL above OR clone the repo and run 'npm install && npm run dev'&#10;2. Sign up for an account or use the demo credentials&#10;3. Try asking the AI a question..."
+                  placeholder={`1. Visit the hosted URL above OR clone the repo and run 'npm install && npm run dev'
+2. Set OPENROUTER_API_KEY in .env.local or in /settings/api-keys
+3. Try asking the AI a question`}
                 />
               </div>
 
@@ -370,7 +373,11 @@ export default function Registration() {
                 <Checkbox
                   id="terms"
                   checked={agreedToTerms}
-                  onCheckedChange={setAgreedToTerms}
+                  onCheckedChange={(checked) =>
+                    setAgreedToTerms(
+                      checked === "indeterminate" ? false : checked
+                    )
+                  }
                   className="border-white/20 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                 />
                 <div className="grid gap-1.5 leading-none">
@@ -411,6 +418,10 @@ export default function Registration() {
                     isSubmitting ||
                     !formData.projectName ||
                     !formData.githubUrl ||
+                    !formData.videoOverviewUrl ||
+                    !formData.description ||
+                    !formData.favoriteParts ||
+                    !formData.testingInstructions ||
                     formData.members.filter((m) => m.trim()).length === 0 ||
                     !agreedToTerms
                   }
