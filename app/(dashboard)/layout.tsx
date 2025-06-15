@@ -4,11 +4,12 @@ import { ConvexClientProvider } from "./convex-provider";
 import {
   ClerkProvider,
   SignInButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
-  UserButton,
 } from "@clerk/nextjs";
+
+import TopNav from "./TopNav";
+import { Button } from "@/components/ui/button";
 
 export default function DashboardLayout({
   children,
@@ -18,11 +19,14 @@ export default function DashboardLayout({
   return (
     <ClerkProvider>
       <SignedOut>
-        <SignInButton />
-        <SignUpButton />
+        <div className="flex justify-center items-center h-screen">
+          <SignInButton>
+            <Button className="bg-white text-black">Sign In With GitHub</Button>
+          </SignInButton>
+        </div>
       </SignedOut>
       <SignedIn>
-        <UserButton />
+        <TopNav />
         <ConvexClientProvider>{children}</ConvexClientProvider>
       </SignedIn>
     </ClerkProvider>
