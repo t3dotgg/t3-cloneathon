@@ -34,6 +34,7 @@ export default function Registration() {
     videoOverviewUrl: "",
     description: "",
     favoriteParts: "",
+    testingInstructions: "",
     status: "in-progress" as "in-progress" | "submitted",
   });
 
@@ -60,6 +61,7 @@ export default function Registration() {
         videoOverviewUrl: currentSubmission.videoOverviewUrl || "",
         description: currentSubmission.description || "",
         favoriteParts: currentSubmission.favoriteParts || "",
+        testingInstructions: currentSubmission.testingInstructions || "",
         status: currentSubmission.status || "in-progress",
       });
     } else if (username) {
@@ -338,6 +340,28 @@ export default function Registration() {
                   }
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-24"
                   placeholder="Tell us about the features or implementation details you're most proud of..."
+                />
+              </div>
+
+              {/* Testing Instructions */}
+              <div>
+                <Label htmlFor="testingInstructions" className="text-white">
+                  Testing Instructions
+                </Label>
+                <p className="text-sm text-white/60 mb-2">
+                  Give us instructions for the simplest way to try out your submission
+                </p>
+                <Textarea
+                  id="testingInstructions"
+                  value={formData.testingInstructions}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      testingInstructions: e.target.value,
+                    }))
+                  }
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-24"
+                  placeholder="1. Visit the hosted URL above OR clone the repo and run 'npm install && npm run dev'&#10;2. Sign up for an account or use the demo credentials&#10;3. Try asking the AI a question..."
                 />
               </div>
 
