@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Registration() {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center relative">
+    <div className="h-full bg-black flex items-center justify-center relative">
       <Link
         href="/"
         className="absolute top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 text-sm sm:text-base"

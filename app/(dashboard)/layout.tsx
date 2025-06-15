@@ -26,8 +26,10 @@ export default function DashboardLayout({
         </div>
       </SignedOut>
       <SignedIn>
-        <TopNav />
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <div className="flex flex-col h-screen bg-black">
+          <TopNav />
+          <ConvexClientProvider>{children}</ConvexClientProvider>
+        </div>
       </SignedIn>
     </ClerkProvider>
   );
