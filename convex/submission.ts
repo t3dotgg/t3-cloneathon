@@ -13,6 +13,7 @@ export const createOrUpdateSubmission = mutation({
 
       description: v.optional(v.string()),
       favoriteParts: v.optional(v.string()),
+      biggestChallenges: v.optional(v.string()),
       testingInstructions: v.optional(v.string()),
 
       status: v.union(v.literal("in-progress"), v.literal("submitted")),

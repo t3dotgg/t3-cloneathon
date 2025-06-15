@@ -34,6 +34,7 @@ export default function Registration() {
     videoOverviewUrl: "",
     description: "",
     favoriteParts: "",
+    biggestChallenges: "",
     testingInstructions: "",
     status: "in-progress" as "in-progress" | "submitted",
   });
@@ -61,6 +62,7 @@ export default function Registration() {
         videoOverviewUrl: currentSubmission.videoOverviewUrl || "",
         description: currentSubmission.description || "",
         favoriteParts: currentSubmission.favoriteParts || "",
+        biggestChallenges: currentSubmission.biggestChallenges || "",
         testingInstructions: currentSubmission.testingInstructions || "",
         status: currentSubmission.status || "in-progress",
       });
@@ -343,6 +345,25 @@ export default function Registration() {
                 />
               </div>
 
+              {/* Biggest Challenges */}
+              <div>
+                <Label htmlFor="biggestChallenges" className="text-white">
+                  Biggest challenges
+                </Label>
+                <Textarea
+                  id="biggestChallenges"
+                  value={formData.biggestChallenges}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      biggestChallenges: e.target.value,
+                    }))
+                  }
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-24"
+                  placeholder="What parts were most difficult to implement? What technical challenges did you face?"
+                />
+              </div>
+
               {/* Testing Instructions */}
               <div>
                 <Label htmlFor="testingInstructions" className="text-white">
@@ -421,6 +442,7 @@ export default function Registration() {
                     !formData.videoOverviewUrl ||
                     !formData.description ||
                     !formData.favoriteParts ||
+                    !formData.biggestChallenges ||
                     !formData.testingInstructions ||
                     formData.members.filter((m) => m.trim()).length === 0 ||
                     !agreedToTerms

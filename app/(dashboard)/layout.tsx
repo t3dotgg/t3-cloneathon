@@ -19,14 +19,14 @@ export default function DashboardLayout({
   return (
     <ClerkProvider>
       <SignedOut>
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center min-h-screen">
           <SignInButton>
             <Button className="bg-white text-black">Sign In With GitHub</Button>
           </SignInButton>
         </div>
       </SignedOut>
       <SignedIn>
-        <div className="flex flex-col h-screen bg-black">
+        <div className="flex flex-col min-h-screen bg-black">
           <TopNav />
           <ConvexClientProvider>{children}</ConvexClientProvider>
         </div>
