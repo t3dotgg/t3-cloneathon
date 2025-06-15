@@ -36,7 +36,7 @@ export default function TermsAndConditionsPage() {
           <h2>3. Registration & Timeline</h2>
           <ul>
             <li>
-              Registration opens on June 10, 2025 and closes on June 17, 2025.
+              Registration opens on June 10, 2025 and closes on June 18, 2025.
             </li>
             <li>
               {"All teams (max. 4 members each) must register "}

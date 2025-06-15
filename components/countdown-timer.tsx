@@ -10,7 +10,7 @@ interface TimeLeft {
 }
 
 const calculateTimeLeft = (): { timeLeft: TimeLeft; isExpired: boolean } => {
-  const targetDate = new Date("2025-06-17T12:00:00-07:00").getTime();
+  const targetDate = new Date("2025-06-18T12:00:00-07:00").getTime();
   const now = new Date().getTime();
   const difference = targetDate - now;
 
@@ -89,7 +89,7 @@ export function CountdownTimer() {
           </div>
         </div>
         <div className="text-xs text-white/40 mt-3 opacity-0">
-          Deadline: June 17, 2025 at 12:00 PM PDT
+          Deadline: June 18, 2025 at 12:00 PM PDT
         </div>
       </div>
     );
@@ -130,7 +130,7 @@ export function CountdownTimer() {
         </div>
       </div>
       <div className="text-xs text-white/40 mt-3 animate-in fade-in duration-500">
-        Deadline: June 17, 2025 at 12:00 PM PDT
+        Deadline: June 18, 2025 at 12:00 PM PDT
       </div>
     </div>
   );
