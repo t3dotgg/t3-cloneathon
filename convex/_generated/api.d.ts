@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as data from "../data.js";
+import type * as submission from "../submission.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -25,6 +26,7 @@ import type * as data from "../data.js";
  */
 declare const fullApi: ApiFromModules<{
   data: typeof data;
+  submission: typeof submission;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

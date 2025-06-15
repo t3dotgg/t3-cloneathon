@@ -6,6 +6,8 @@ export default defineSchema({
     projectName: v.string(),
     members: v.array(v.string()),
 
+    userId: v.string(), // Subject from Clerk
+
     githubUrl: v.string(),
     hostedSiteUrl: v.optional(v.string()),
     videoOverviewUrl: v.optional(v.string()),
@@ -17,5 +19,5 @@ export default defineSchema({
     updatedAt: v.number(),
 
     status: v.union(v.literal("in-progress"), v.literal("submitted")),
-  }),
+  }).index("by_user", ["userId"]),
 });
