@@ -3,6 +3,7 @@
 import { api } from "@/convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import { useState, useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +20,7 @@ import { X, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 export default function Registration() {
+  const { user } = useUser();
   const currentSubmission = useQuery(api.submission.getSubmission);
   const submit = useMutation(api.submission.createOrUpdateSubmission);
 
@@ -35,12 +37,21 @@ export default function Registration() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Update form data when submission loads
+  // Update form data when submission loads or user changes
   useEffect(() => {
+    const username =
+      user?.username ||
+      user?.firstName ||
+      user?.emailAddresses?.[0]?.emailAddress ||
+      "";
+
     if (currentSubmission) {
       setFormData({
         projectName: currentSubmission.projectName || "",
-        members: currentSubmission.members || [""],
+        members:
+          currentSubmission.members.length > 0
+            ? currentSubmission.members
+            : [username],
         githubUrl: currentSubmission.githubUrl || "",
         hostedSiteUrl: currentSubmission.hostedSiteUrl || "",
         videoOverviewUrl: currentSubmission.videoOverviewUrl || "",
@@ -48,8 +59,14 @@ export default function Registration() {
         favoriteParts: currentSubmission.favoriteParts || "",
         status: currentSubmission.status || "in-progress",
       });
+    } else if (username) {
+      // Set username as first team member for new submissions
+      setFormData((prev) => ({
+        ...prev,
+        members: [username],
+      }));
     }
-  }, [currentSubmission]);
+  }, [currentSubmission, user]);
 
   const handleSubmit = async (
     e: React.FormEvent,
@@ -177,8 +194,14 @@ export default function Registration() {
                         value={member}
                         onChange={(e) => updateMember(index, e.target.value)}
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                        placeholder={`Team member ${index + 1}`}
+                        placeholder={
+                          index === 0
+                            ? "You (team lead)"
+                            : `Team member ${index + 1}`
+                        }
                         required={index === 0}
+                        readOnly={index === 0}
+                        disabled={index === 0}
                       />
                       {index > 0 && (
                         <Button
