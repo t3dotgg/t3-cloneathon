@@ -16,8 +16,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { X, Plus } from "lucide-react";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function Registration() {
   const { user } = useUser();
@@ -36,6 +38,7 @@ export default function Registration() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   // Update form data when submission loads or user changes
   useEffect(() => {
@@ -329,6 +332,34 @@ export default function Registration() {
                 />
               </div>
 
+              {/* Terms and Conditions */}
+              <div className="flex items-start space-x-2">
+                <Checkbox
+                  id="terms"
+                  checked={agreedToTerms}
+                  onCheckedChange={setAgreedToTerms}
+                  className="border-white/20 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                />
+                <div className="grid gap-1.5 leading-none">
+                  <Label
+                    htmlFor="terms"
+                    className="text-sm font-medium leading-none text-white peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    I agree to the{" "}
+                    <Link
+                      href="/terms-and-conditions"
+                      className="text-purple-400 hover:text-purple-300 underline"
+                      target="_blank"
+                    >
+                      Terms and Conditions
+                    </Link>
+                  </Label>
+                  <p className="text-xs text-white/60">
+                    You must agree to the terms and conditions to submit your entry.
+                  </p>
+                </div>
+              </div>
+
               {/* Submit Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button
@@ -346,7 +377,8 @@ export default function Registration() {
                     isSubmitting ||
                     !formData.projectName ||
                     !formData.githubUrl ||
-                    formData.members.filter((m) => m.trim()).length === 0
+                    formData.members.filter((m) => m.trim()).length === 0 ||
+                    !agreedToTerms
                   }
                   className="bg-purple-600 hover:bg-purple-700 text-white"
                 >
