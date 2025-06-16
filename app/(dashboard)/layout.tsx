@@ -2,19 +2,9 @@
 
 import type React from "react";
 import { ConvexClientProvider } from "./convex-provider";
-import {
-  Authenticated,
-  Unauthenticated,
-  AuthLoading,
-  useQuery,
-} from "convex/react";
+import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-} from "@clerk/nextjs";
+import { ClerkProvider, SignInButton } from "@clerk/nextjs";
 
 import TopNav from "./TopNav";
 import { Button } from "@/components/ui/button";
