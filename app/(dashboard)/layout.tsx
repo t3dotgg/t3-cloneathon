@@ -8,6 +8,7 @@ import { ClerkProvider, SignInButton } from "@clerk/nextjs";
 
 import TopNav from "./TopNav";
 import { Button } from "@/components/ui/button";
+import LoadingSpinner from "@/components/loading-spinner";
 
 export default function DashboardLayout({
   children,
@@ -19,7 +20,7 @@ export default function DashboardLayout({
       <ConvexClientProvider>
         <AuthLoading>
           <div className="flex justify-center items-center min-h-screen">
-            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
+            <LoadingSpinner />
           </div>
         </AuthLoading>
         <Unauthenticated>

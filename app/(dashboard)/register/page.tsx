@@ -20,6 +20,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { X, Plus } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
+import LoadingSpinner from "@/components/loading-spinner";
 
 export default function Registration() {
   const { user } = useUser();
@@ -132,8 +133,8 @@ export default function Registration() {
 
   if (currentSubmission === undefined) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white">Loading...</div>
+      <div className="flex justify-center items-center flex-grow">
+        <LoadingSpinner />
       </div>
     );
   }
