@@ -1,4 +1,5 @@
 import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 const TopNav = () => (
   <nav
@@ -12,9 +13,11 @@ const TopNav = () => (
       minHeight: 56,
     }}
   >
-    <span style={{ fontWeight: 600, fontSize: 20, color: "#fff" }}>
-      T3 Cloneathon
-    </span>
+    <Link href="/">
+      <span style={{ fontWeight: 600, fontSize: 20, color: "#fff" }}>
+        T3 Cloneathon
+      </span>
+    </Link>
     <UserButton
       appearance={{
         elements: { userButtonAvatarBox: { borderColor: "#fff" } },
