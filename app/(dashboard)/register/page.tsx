@@ -213,6 +213,10 @@ export default function Registration() {
                 <Label htmlFor="projectName" className="text-white">
                   Project Name *
                 </Label>
+                <p className="text-sm text-white/60 mb-2">
+                  Make sure your project is clearly branded as NOT T3 Chat
+                  (either use a new name or call out that it is a clone)
+                </p>
                 <Input
                   id="projectName"
                   value={formData.projectName}

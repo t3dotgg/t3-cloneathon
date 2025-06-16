@@ -149,7 +149,20 @@ export default function TermsAndConditionsPage() {
         </section>
 
         <section>
-          <h2>10. Governing Law</h2>
+          <h2>10. Use of T3 Chat branding</h2>
+          <ul>
+            <li>
+              You are permitted to use T3 Chat branding ONLY as far as
+              indicating the nature of the contest. It should be clear to any
+              user of your "clone" that it is NOT the original T3 Chat service.
+              Good faith effort should be made to distinguish your
+              implementation from the official T3 Chat service.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>11. Governing Law</h2>
           <ul>
             <li>
               These Terms are governed by the laws of the State of California
