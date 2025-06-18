@@ -185,8 +185,8 @@ export function UpdateSubmission() {
                 </h3>
                 <p className="text-green-200/80">
                   Your project has been successfully submitted to the T3 Chat
-                  Cloneathon. You can still update your submission anytime
-                  before the deadline.
+                  Cloneathon. You can still update your submission for up to 24
+                  hours after the deadline is hit.
                 </p>
               </div>
             </div>
