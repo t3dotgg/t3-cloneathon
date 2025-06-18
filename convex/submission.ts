@@ -56,7 +56,7 @@ export const getSubmission = query({
 
     return await ctx.db
       .query("submissions")
-      .filter((q) => q.eq(q.field("userId"), identity.subject))
+      .withIndex("by_user", (q) => q.eq("userId", identity.subject))
       .unique();
   },
 });
