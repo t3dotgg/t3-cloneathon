@@ -95,12 +95,6 @@ export function CountdownTimer() {
     );
   }
 
-  if (isExpired) {
-    return (
-      <div className="text-center text-white/50 text-sm">Competition ended</div>
-    );
-  }
-
   return (
     <div className="text-center">
       <div className="flex justify-center gap-8 text-white/80 animate-in fade-in duration-500">
@@ -130,7 +124,7 @@ export function CountdownTimer() {
         </div>
       </div>
       <div className="text-xs text-white/40 mt-3 animate-in fade-in duration-500">
-        Deadline: June 18, 2025 at 12:00 PM PDT
+        Deadline: June 18, 2025 at 12:00 PM PDT (WE HIT IT!)
       </div>
     </div>
   );

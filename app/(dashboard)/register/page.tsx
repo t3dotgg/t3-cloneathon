@@ -22,10 +22,14 @@ import { toast } from "sonner";
 import Link from "next/link";
 import LoadingSpinner from "@/components/loading-spinner";
 
-export default function Registration() {
+export function UpdateSubmission() {
   const { user } = useUser();
   const currentSubmission = useQuery(api.submission.getSubmission);
-  const submit = useMutation(api.submission.createOrUpdateSubmission);
+  const submit = useMutation(api.submission.updateSubmission);
+
+  if (currentSubmission === null) {
+    return <div>Sorry, submissions are now closed</div>;
+  }
 
   const [formData, setFormData] = useState({
     projectName: "",
@@ -507,4 +511,14 @@ export default function Registration() {
       </div>
     </div>
   );
+}
+
+export default function Registration() {
+  const currentSubmission = useQuery(api.submission.getSubmission);
+
+  if (currentSubmission === null) {
+    return <div>Sorry, submissions are now closed</div>;
+  }
+
+  return <UpdateSubmission />;
 }

@@ -55,7 +55,7 @@ export default function HomePage() {
                 size="lg"
                 className="bg-purple-600 hover:bg-purple-700 text-white"
               >
-                Register Now
+                Update Your Submission
               </Button>
             </Link>
           </div>
@@ -547,7 +547,7 @@ export default function HomePage() {
                 size="lg"
                 className="bg-purple-600 hover:bg-purple-700 text-white"
               >
-                Register Now
+                Update Your Submission
               </Button>
             </Link>
             <Link

@@ -1,7 +1,7 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
-export const createOrUpdateSubmission = mutation({
+export const updateSubmission = mutation({
   args: {
     submission: v.object({
       projectName: v.string(),
@@ -30,19 +30,14 @@ export const createOrUpdateSubmission = mutation({
       .filter((q) => q.eq(q.field("userId"), identity.subject))
       .unique();
 
-    if (submission) {
-      await ctx.db.patch(submission._id, {
-        ...args.submission,
-        updatedAt: Date.now(),
-      });
-    } else {
-      await ctx.db.insert("submissions", {
-        ...args.submission,
-        userId: identity.subject,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      });
+    if (!submission) {
+      throw new Error("Submission not found");
     }
+
+    await ctx.db.patch(submission._id, {
+      ...args.submission,
+      updatedAt: Date.now(),
+    });
   },
 });
 
