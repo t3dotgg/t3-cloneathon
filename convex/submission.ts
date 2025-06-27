@@ -120,7 +120,7 @@ export const getAllSubmissions = query({
       });
     }
     if (args.filter?.score !== undefined) {
-      query = query.filter((q) => q.eq(q.field("score"), args.filter!.score));
+      query = query.filter((q) => q.gte(q.field("score"), args.filter!.score!));
     }
 
     // Apply pagination

@@ -91,7 +91,7 @@ export function SubmissionFilters({
             htmlFor="score-filter"
             className="text-sm text-muted-foreground"
           >
-            Score:
+            Min Score:
           </label>
           <select
             id="score-filter"
@@ -103,16 +103,16 @@ export function SubmissionFilters({
             className="text-sm border border-border rounded px-2 py-1 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="">All Scores</option>
-            <option value="1">Score 1</option>
-            <option value="2">Score 2</option>
-            <option value="3">Score 3</option>
-            <option value="4">Score 4</option>
-            <option value="5">Score 5</option>
-            <option value="6">Score 6</option>
-            <option value="7">Score 7</option>
-            <option value="8">Score 8</option>
-            <option value="9">Score 9</option>
-            <option value="10">Score 10</option>
+            <option value="1">1+ and above</option>
+            <option value="2">2+ and above</option>
+            <option value="3">3+ and above</option>
+            <option value="4">4+ and above</option>
+            <option value="5">5+ and above</option>
+            <option value="6">6+ and above</option>
+            <option value="7">7+ and above</option>
+            <option value="8">8+ and above</option>
+            <option value="9">9+ and above</option>
+            <option value="10">10 only</option>
           </select>
         </div>
 
