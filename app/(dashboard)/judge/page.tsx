@@ -2,7 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import { api } from "@/convex/_generated/api";
-import { usePaginatedQuery } from "convex/react";
+import { usePaginatedQuery, useQuery } from "convex/react";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SubmissionCard } from "./submission-card";
@@ -12,6 +12,8 @@ export default function JudgePage() {
   const { user } = useUser();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const submissionCounts = useQuery(api.submission.getSubmissionCounts);
 
   // Initialize filters from URL query parameters
   const [filters, setFilters] = useState({
@@ -100,13 +102,22 @@ export default function JudgePage() {
 
   return (
     <div className="w-[80rem] max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          Submission Judging
-        </h1>
-        <p className="text-muted-foreground">
-          Review and evaluate all competition submissions.
-        </p>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground mb-2">
+            Submission Judging
+          </h1>
+          <p className="text-muted-foreground">
+            Review and evaluate all competition submissions.
+          </p>
+        </div>
+        <div className="text-right">
+          <p className="text-sm text-muted-foreground mb-1">Reviewed</p>
+          <p className="text-2xl font-bold text-foreground">
+            {submissionCounts?.reviewed ?? "-"}/
+            {submissionCounts?.submitted ?? "-"}
+          </p>
+        </div>
       </div>
 
       <SubmissionFilters
