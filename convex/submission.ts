@@ -186,3 +186,23 @@ export const unsetSubmissionScore = mutation({
     return null;
   },
 });
+
+export const getSubmissionCounts = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+
+    const submitted = await ctx.db
+      .query("submissions")
+      .filter((q) => q.eq(q.field("status"), "submitted"))
+      .collect();
+
+    const submittedCount = submitted.length;
+    const reviewedCount = submitted.filter((s) => s.reviewed).length;
+
+    return {
+      reviewed: reviewedCount,
+      submitted: submittedCount,
+    };
+  },
+});
