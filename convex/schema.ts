@@ -21,5 +21,10 @@ export default defineSchema({
     updatedAt: v.number(),
 
     status: v.union(v.literal("in-progress"), v.literal("submitted")),
+
+    // Admin judging fields
+    reviewed: v.optional(v.boolean()),
+    goodSubmission: v.optional(v.boolean()),
+    judgeNotes: v.optional(v.string()),
   }).index("by_user", ["userId"]),
 });

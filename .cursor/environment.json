@@ -1,0 +1,11 @@
+{
+  "agentCanUpdateSnapshot": true,
+  "install": "pnpm install",
+  "terminals": [
+    {
+      "name": "test",
+      "description": "Start the test watcher",
+      "command": "pnpm test:watch"
+    }
+  ]
+}

@@ -1,7 +1,11 @@
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 
-const TopNav = () => (
+const TopNav = () => {
+  const { user } = useAuth();
+  const isAdmin = user?.publicMetadata?.role === "admin";
+
+  return (
   <nav
     style={{
       display: "flex",
@@ -13,17 +17,30 @@ const TopNav = () => (
       minHeight: 56,
     }}
   >
-    <Link href="/">
-      <span style={{ fontWeight: 600, fontSize: 20, color: "#fff" }}>
-        T3 Cloneathon
-      </span>
-    </Link>
+    <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+      <Link href="/">
+        <span style={{ fontWeight: 600, fontSize: 20, color: "#fff" }}>
+          T3 Cloneathon
+        </span>
+      </Link>
+      <div style={{ display: "flex", gap: "1rem" }}>
+        <Link href="/register" style={{ color: "#fff", textDecoration: "none", fontSize: 14 }}>
+          Register
+        </Link>
+        {isAdmin && (
+          <Link href="/judge" style={{ color: "#fff", textDecoration: "none", fontSize: 14 }}>
+            Judge
+          </Link>
+        )}
+      </div>
+    </div>
     <UserButton
       appearance={{
         elements: { userButtonAvatarBox: { borderColor: "#fff" } },
       }}
     />
   </nav>
-);
+  );
+};
 
 export default TopNav;
