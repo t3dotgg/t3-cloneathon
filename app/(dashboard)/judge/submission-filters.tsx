@@ -4,7 +4,7 @@ interface SubmissionFiltersProps {
   filters: {
     status: "in-progress" | "submitted" | undefined;
     reviewed: boolean | undefined;
-    goodSubmission: boolean | undefined;
+    score: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | undefined;
   };
   onFiltersChange: (filters: any) => void;
 }
@@ -24,14 +24,14 @@ export function SubmissionFilters({
     onFiltersChange({
       status: undefined,
       reviewed: undefined,
-      goodSubmission: undefined,
+      score: undefined,
     });
   };
 
   const hasActiveFilters =
     filters.status ||
     filters.reviewed !== undefined ||
-    filters.goodSubmission !== undefined;
+    filters.score !== undefined;
 
   return (
     <div className="bg-muted/50 rounded-lg p-4 mb-6">
@@ -88,37 +88,38 @@ export function SubmissionFilters({
 
         <div className="flex items-center gap-2">
           <label
-            htmlFor="good-filter"
+            htmlFor="score-filter"
             className="text-sm text-muted-foreground"
           >
-            Good Submission:
+            Score:
           </label>
           <select
-            id="good-filter"
-            value={
-              filters.goodSubmission === undefined
-                ? ""
-                : filters.goodSubmission.toString()
-            }
+            id="score-filter"
+            value={filters.score || ""}
             onChange={(e) => {
               const value = e.target.value;
-              updateFilter(
-                "goodSubmission",
-                value === "" ? undefined : value === "true"
-              );
+              updateFilter("score", value === "" ? undefined : parseInt(value));
             }}
             className="text-sm border border-border rounded px-2 py-1 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           >
-            <option value="">All</option>
-            <option value="true">Good Submissions</option>
-            <option value="false">Not Good</option>
+            <option value="">All Scores</option>
+            <option value="1">Score 1</option>
+            <option value="2">Score 2</option>
+            <option value="3">Score 3</option>
+            <option value="4">Score 4</option>
+            <option value="5">Score 5</option>
+            <option value="6">Score 6</option>
+            <option value="7">Score 7</option>
+            <option value="8">Score 8</option>
+            <option value="9">Score 9</option>
+            <option value="10">Score 10</option>
           </select>
         </div>
 
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
-            className="text-sm text-primary hover:text-primary/80 underline"
+            className="text-sm text-muted-foreground hover:text-foreground underline"
           >
             Clear Filters
           </button>

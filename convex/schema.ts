@@ -24,7 +24,20 @@ export default defineSchema({
 
     // Admin judging fields
     reviewed: v.optional(v.boolean()),
-    goodSubmission: v.optional(v.boolean()),
+    score: v.optional(
+      v.union(
+        v.literal(1),
+        v.literal(2),
+        v.literal(3),
+        v.literal(4),
+        v.literal(5),
+        v.literal(6),
+        v.literal(7),
+        v.literal(8),
+        v.literal(9),
+        v.literal(10)
+      )
+    ),
     judgeNotes: v.optional(v.string()),
   }).index("by_user", ["userId"]),
 });

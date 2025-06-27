@@ -24,12 +24,19 @@ export default function JudgePage() {
         : searchParams.get("reviewed") === "false"
           ? false
           : undefined,
-    goodSubmission:
-      searchParams.get("goodSubmission") === "true"
-        ? true
-        : searchParams.get("goodSubmission") === "false"
-          ? false
-          : undefined,
+    score: searchParams.get("score")
+      ? (parseInt(searchParams.get("score")!) as
+          | 1
+          | 2
+          | 3
+          | 4
+          | 5
+          | 6
+          | 7
+          | 8
+          | 9
+          | 10)
+      : undefined,
   });
 
   // Update URL when filters change
@@ -46,8 +53,8 @@ export default function JudgePage() {
       params.set("reviewed", newFilters.reviewed.toString());
     }
 
-    if (newFilters.goodSubmission !== undefined) {
-      params.set("goodSubmission", newFilters.goodSubmission.toString());
+    if (newFilters.score !== undefined) {
+      params.set("score", newFilters.score.toString());
     }
 
     const queryString = params.toString();

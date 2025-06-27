@@ -18,7 +18,7 @@ type Submission = {
   testingInstructions?: string;
   status: "in-progress" | "submitted";
   reviewed?: boolean;
-  goodSubmission?: boolean;
+  score?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   judgeNotes?: string;
   createdAt: number;
   updatedAt: number;
@@ -180,8 +180,13 @@ interface SubmissionCardProps {
 
 export function SubmissionCard({ submission }: SubmissionCardProps) {
   const updateJudging = useMutation(api.submission.updateSubmissionJudging);
+  const unsetScore = useMutation(api.submission.unsetSubmissionScore);
   const [notes, setNotes] = useState(submission.judgeNotes || "");
+  const [selectedScore, setSelectedScore] = useState<
+    1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | null
+  >(submission.score || null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const debouncedSaveNotes = useCallback(
@@ -212,15 +217,38 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
     debouncedSaveNotes(value);
   };
 
-  const handleToggle = async (field: "reviewed" | "goodSubmission") => {
+  const handleScoreSelect = async (
+    score: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+  ) => {
+    if (selectedScore === score) {
+      // Clear the score if it's already selected
+      try {
+        await unsetScore({
+          submissionId: submission._id,
+        });
+        setSelectedScore(null);
+      } catch (error) {
+        console.error("Failed to clear score:", error);
+      }
+    } else {
+      setSelectedScore(score);
+    }
+  };
+
+  const handleSubmitReview = async () => {
     try {
-      const currentValue = submission[field];
+      setIsSubmitting(true);
       await updateJudging({
         submissionId: submission._id,
-        updates: { [field]: !currentValue },
+        updates: {
+          reviewed: true,
+          score: selectedScore || undefined,
+        },
       });
     } catch (error) {
-      console.error(`Failed to update ${field}:`, error);
+      console.error("Failed to submit review:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -278,200 +306,119 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
             >
               {submission.status}
             </span>
+            {submission.reviewed && (
+              <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
+                Reviewed
+              </span>
+            )}
+            {submission.score && (
+              <span className="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400">
+                Score: {submission.score}/10
+              </span>
+            )}
           </div>
         </div>
 
-        {/* Enhanced Status Toggles */}
-        <div className="flex gap-3">
-          <button
-            onClick={() => handleToggle("reviewed")}
-            className={`group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-              submission.reviewed
-                ? "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 shadow-sm"
-                : "bg-muted/50 text-muted-foreground hover:bg-muted border border-border/50"
-            }`}
+        {/* Project Links moved to top right */}
+        <div className="flex items-center gap-4 text-sm">
+          <a
+            href={submission.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
           >
-            <div
-              className={`transition-colors ${submission.reviewed ? "text-blue-600" : "text-muted-foreground"}`}
-            >
-              {submission.reviewed ? (
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              )}
-            </div>
-            {submission.reviewed ? "Reviewed" : "Mark Reviewed"}
-          </button>
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span>GitHub</span>
+          </a>
 
-          <button
-            onClick={() => handleToggle("goodSubmission")}
-            className={`group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-              submission.goodSubmission
-                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 shadow-sm"
-                : "bg-muted/50 text-muted-foreground hover:bg-muted border border-border/50"
-            }`}
-          >
-            <div
-              className={`transition-colors ${submission.goodSubmission ? "text-green-600" : "text-muted-foreground"}`}
+          {submission.hostedSiteUrl ? (
+            <a
+              href={submission.hostedSiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 transition-colors"
             >
-              {submission.goodSubmission ? (
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                  />
-                </svg>
-              )}
-            </div>
-            {submission.goodSubmission ? "Good Submission" : "Mark as Good"}
-          </button>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+              <span>Live Site</span>
+            </a>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 text-muted-foreground/60">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+              <span>No Live Site</span>
+            </span>
+          )}
+
+          {submission.videoOverviewUrl ? (
+            <a
+              href={submission.videoOverviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 transition-colors"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+              </svg>
+              <span>Video</span>
+            </a>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 text-muted-foreground/60">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+              </svg>
+              <span>No Video</span>
+            </span>
+          )}
         </div>
-      </div>
-
-      {/* Subtle Project Links */}
-      <div className="flex items-center gap-4 mb-6 text-sm">
-        <a
-          href={submission.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <span>GitHub</span>
-        </a>
-
-        {submission.hostedSiteUrl ? (
-          <a
-            href={submission.hostedSiteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 transition-colors"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-            <span>Live Site</span>
-          </a>
-        ) : (
-          <span className="inline-flex items-center gap-1.5 text-muted-foreground/60">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-            <span>No Live Site</span>
-          </span>
-        )}
-
-        {submission.videoOverviewUrl ? (
-          <a
-            href={submission.videoOverviewUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 transition-colors"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
-            </svg>
-            <span>Video</span>
-          </a>
-        ) : (
-          <span className="inline-flex items-center gap-1.5 text-muted-foreground/60">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
-            </svg>
-            <span>No Video</span>
-          </span>
-        )}
       </div>
 
       {/* Embedded Video with Max Width */}
@@ -519,10 +466,58 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
         />
       </div>
 
-      {/* Timestamps */}
-      <div className="text-xs text-muted-foreground">
-        Created: {new Date(submission.createdAt).toLocaleDateString()} |
-        Updated: {new Date(submission.updatedAt).toLocaleDateString()}
+      {/* Score Selection */}
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-foreground mb-3">
+          Score (1-10)
+        </label>
+        <div className="flex gap-2 flex-wrap">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
+            <button
+              key={score}
+              onClick={() =>
+                handleScoreSelect(
+                  score as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+                )
+              }
+              className={`w-10 h-10 rounded-lg border-2 transition-all duration-200 font-medium ${
+                selectedScore === score
+                  ? "bg-primary text-primary-foreground border-primary shadow-md"
+                  : "bg-background text-foreground border-border hover:border-primary hover:bg-primary/10"
+              }`}
+            >
+              {score}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Submit Review Button */}
+      <div className="flex justify-between items-center">
+        <div className="text-xs text-muted-foreground">
+          Created: {new Date(submission.createdAt).toLocaleDateString()} |
+          Updated: {new Date(submission.updatedAt).toLocaleDateString()}
+        </div>
+
+        <div className="flex flex-col items-end gap-1">
+          <button
+            onClick={handleSubmitReview}
+            disabled={isSubmitting || submission.reviewed || !selectedScore}
+            className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+              submission.reviewed
+                ? "bg-muted text-muted-foreground cursor-not-allowed"
+                : !selectedScore
+                  ? "bg-muted text-muted-foreground cursor-not-allowed"
+                  : "bg-primary text-primary-foreground hover:bg-primary/90"
+            }`}
+          >
+            {isSubmitting
+              ? "Submitting..."
+              : submission.reviewed
+                ? "Review Submitted"
+                : "Submit Review"}
+          </button>
+        </div>
       </div>
     </div>
   );

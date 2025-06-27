@@ -81,7 +81,20 @@ export const getAllSubmissions = query({
           v.union(v.literal("in-progress"), v.literal("submitted"))
         ),
         reviewed: v.optional(v.boolean()),
-        goodSubmission: v.optional(v.boolean()),
+        score: v.optional(
+          v.union(
+            v.literal(1),
+            v.literal(2),
+            v.literal(3),
+            v.literal(4),
+            v.literal(5),
+            v.literal(6),
+            v.literal(7),
+            v.literal(8),
+            v.literal(9),
+            v.literal(10)
+          )
+        ),
       })
     ),
   },
@@ -106,10 +119,8 @@ export const getAllSubmissions = query({
         }
       });
     }
-    if (args.filter?.goodSubmission !== undefined) {
-      query = query.filter((q) =>
-        q.eq(q.field("goodSubmission"), args.filter!.goodSubmission)
-      );
+    if (args.filter?.score !== undefined) {
+      query = query.filter((q) => q.eq(q.field("score"), args.filter!.score));
     }
 
     // Apply pagination
@@ -122,7 +133,20 @@ export const updateSubmissionJudging = mutation({
     submissionId: v.id("submissions"),
     updates: v.object({
       reviewed: v.optional(v.boolean()),
-      goodSubmission: v.optional(v.boolean()),
+      score: v.optional(
+        v.union(
+          v.literal(1),
+          v.literal(2),
+          v.literal(3),
+          v.literal(4),
+          v.literal(5),
+          v.literal(6),
+          v.literal(7),
+          v.literal(8),
+          v.literal(9),
+          v.literal(10)
+        )
+      ),
       judgeNotes: v.optional(v.string()),
     }),
   },
@@ -138,5 +162,27 @@ export const updateSubmissionJudging = mutation({
       ...args.updates,
       updatedAt: Date.now(),
     });
+  },
+});
+
+export const unsetSubmissionScore = mutation({
+  args: {
+    submissionId: v.id("submissions"),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+
+    const submission = await ctx.db.get(args.submissionId);
+    if (!submission) {
+      throw new Error("Submission not found");
+    }
+
+    await ctx.db.patch(args.submissionId, {
+      score: undefined,
+      updatedAt: Date.now(),
+    });
+
+    return null;
   },
 });
