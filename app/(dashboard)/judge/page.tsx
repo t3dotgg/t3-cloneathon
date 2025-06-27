@@ -4,16 +4,57 @@ import { useUser } from "@clerk/nextjs";
 import { api } from "@/convex/_generated/api";
 import { usePaginatedQuery } from "convex/react";
 import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SubmissionCard } from "./submission-card";
 import { SubmissionFilters } from "./submission-filters";
 
 export default function JudgePage() {
   const { user } = useUser();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Initialize filters from URL query parameters
   const [filters, setFilters] = useState({
-    status: undefined as "in-progress" | "submitted" | undefined,
-    reviewed: undefined as boolean | undefined,
-    goodSubmission: undefined as boolean | undefined,
+    status:
+      (searchParams.get("status") as "in-progress" | "submitted" | null) ||
+      undefined,
+    reviewed:
+      searchParams.get("reviewed") === "true"
+        ? true
+        : searchParams.get("reviewed") === "false"
+          ? false
+          : undefined,
+    goodSubmission:
+      searchParams.get("goodSubmission") === "true"
+        ? true
+        : searchParams.get("goodSubmission") === "false"
+          ? false
+          : undefined,
   });
+
+  // Update URL when filters change
+  const handleFiltersChange = (newFilters: typeof filters) => {
+    setFilters(newFilters);
+
+    const params = new URLSearchParams();
+
+    if (newFilters.status) {
+      params.set("status", newFilters.status);
+    }
+
+    if (newFilters.reviewed !== undefined) {
+      params.set("reviewed", newFilters.reviewed.toString());
+    }
+
+    if (newFilters.goodSubmission !== undefined) {
+      params.set("goodSubmission", newFilters.goodSubmission.toString());
+    }
+
+    const queryString = params.toString();
+    const newUrl = queryString ? `?${queryString}` : "/judge";
+
+    router.replace(newUrl, { scroll: false });
+  };
 
   // Check if user is admin
   const isAdmin = user?.publicMetadata?.role === "admin";
@@ -61,7 +102,10 @@ export default function JudgePage() {
         </p>
       </div>
 
-      <SubmissionFilters filters={filters} onFiltersChange={setFilters} />
+      <SubmissionFilters
+        filters={filters}
+        onFiltersChange={handleFiltersChange}
+      />
 
       {status === "LoadingFirstPage" ? (
         <div className="flex items-center justify-center py-12">
