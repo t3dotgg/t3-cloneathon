@@ -13,6 +13,9 @@ type Submission = {
   hostedSiteUrl?: string;
   videoOverviewUrl?: string;
   description?: string;
+  favoriteParts?: string;
+  biggestChallenges?: string;
+  testingInstructions?: string;
   status: "in-progress" | "submitted";
   reviewed?: boolean;
   goodSubmission?: boolean;
@@ -20,6 +23,156 @@ type Submission = {
   createdAt: number;
   updatedAt: number;
 };
+
+interface TabContentProps {
+  submissions: Submission;
+}
+
+function ProjectTabs({ submissions }: TabContentProps) {
+  const [activeTab, setActiveTab] = useState<string>("description");
+
+  const tabs = [
+    {
+      id: "description",
+      label: "Description",
+      content: submissions.description,
+      icon: (
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: "favorite",
+      label: "Favorite Parts",
+      content: submissions.favoriteParts,
+      icon: (
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: "challenges",
+      label: "Challenges",
+      content: submissions.biggestChallenges,
+      icon: (
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: "testing",
+      label: "Testing",
+      content: submissions.testingInstructions,
+      icon: (
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+    },
+  ].filter((tab) => tab.content); // Only show tabs that have content
+
+  if (tabs.length === 0) return null;
+
+  // If there's only one tab, show it without the tab interface
+  if (tabs.length === 1) {
+    const singleTab = tabs[0];
+    return (
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="text-blue-500">{singleTab.icon}</div>
+          <h4 className="text-sm font-medium text-foreground">
+            {singleTab.label}
+          </h4>
+        </div>
+        <div className="bg-muted/30 rounded-md p-4 border border-border/50">
+          <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
+            {singleTab.content}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const activeTabData = tabs.find((tab) => tab.id === activeTab) || tabs[0];
+
+  return (
+    <div className="mb-6">
+      {/* Tab Headers */}
+      <div className="flex border-b border-border mb-4">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+              activeTab === tab.id
+                ? "text-primary border-primary"
+                : "text-muted-foreground border-transparent hover:text-foreground hover:border-border"
+            }`}
+          >
+            <div
+              className={
+                activeTab === tab.id ? "text-primary" : "text-muted-foreground"
+              }
+            >
+              {tab.icon}
+            </div>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab Content */}
+      <div className="bg-muted/30 rounded-md p-4 border border-border/50 min-h-[120px]">
+        <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
+          {activeTabData.content}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 interface SubmissionCardProps {
   submission: Submission;
@@ -88,7 +241,7 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
 
   return (
     <div className="bg-card rounded-lg shadow-md border border-border p-6">
-      <div className="flex justify-between items-start mb-4">
+      <div className="flex justify-between items-start mb-6">
         <div>
           <h3 className="text-xl font-semibold text-foreground mb-2">
             {submission.projectName}
@@ -127,72 +280,126 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
             </span>
           </div>
         </div>
-        <div className="flex gap-2">
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id={`reviewed-${submission._id}`}
-              checked={submission.reviewed || false}
-              onChange={() => handleToggle("reviewed")}
-              className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
-            />
-            <label
-              htmlFor={`reviewed-${submission._id}`}
-              className="ml-2 text-sm text-muted-foreground"
+
+        {/* Enhanced Status Toggles */}
+        <div className="flex gap-3">
+          <button
+            onClick={() => handleToggle("reviewed")}
+            className={`group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              submission.reviewed
+                ? "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 shadow-sm"
+                : "bg-muted/50 text-muted-foreground hover:bg-muted border border-border/50"
+            }`}
+          >
+            <div
+              className={`transition-colors ${submission.reviewed ? "text-blue-600" : "text-muted-foreground"}`}
             >
-              Reviewed
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id={`good-${submission._id}`}
-              checked={submission.goodSubmission || false}
-              onChange={() => handleToggle("goodSubmission")}
-              className="h-4 w-4 text-green-600 focus:ring-green-500 border-border rounded"
-            />
-            <label
-              htmlFor={`good-${submission._id}`}
-              className="ml-2 text-sm text-muted-foreground"
+              {submission.reviewed ? (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              )}
+            </div>
+            {submission.reviewed ? "Reviewed" : "Mark Reviewed"}
+          </button>
+
+          <button
+            onClick={() => handleToggle("goodSubmission")}
+            className={`group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              submission.goodSubmission
+                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 shadow-sm"
+                : "bg-muted/50 text-muted-foreground hover:bg-muted border border-border/50"
+            }`}
+          >
+            <div
+              className={`transition-colors ${submission.goodSubmission ? "text-green-600" : "text-muted-foreground"}`}
             >
-              Good Submission
-            </label>
-          </div>
+              {submission.goodSubmission ? (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                  />
+                </svg>
+              )}
+            </div>
+            {submission.goodSubmission ? "Good Submission" : "Mark as Good"}
+          </button>
         </div>
       </div>
 
-      {submission.description && (
-        <div className="mb-4">
-          <p className="text-foreground">{submission.description}</p>
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      {/* Subtle Project Links */}
+      <div className="flex items-center gap-4 mb-6 text-sm">
         <a
           href={submission.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+          className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
         >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
               d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
               clipRule="evenodd"
             />
           </svg>
-          GitHub Repository
+          <span>GitHub</span>
         </a>
 
-        {submission.hostedSiteUrl && (
+        {submission.hostedSiteUrl ? (
           <a
             href={submission.hostedSiteUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 transition-colors"
+            className="inline-flex items-center gap-1.5 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 transition-colors"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -204,19 +411,36 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
                 d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
               />
             </svg>
-            Live Site
+            <span>Live Site</span>
           </a>
+        ) : (
+          <span className="inline-flex items-center gap-1.5 text-muted-foreground/60">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+            <span>No Live Site</span>
+          </span>
         )}
 
-        {submission.videoOverviewUrl && (
+        {submission.videoOverviewUrl ? (
           <a
             href={submission.videoOverviewUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300 transition-colors"
+            className="inline-flex items-center gap-1.5 text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 transition-colors"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -228,27 +452,51 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
                 d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
               />
             </svg>
-            Video Overview
+            <span>Video</span>
           </a>
+        ) : (
+          <span className="inline-flex items-center gap-1.5 text-muted-foreground/60">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+            <span>No Video</span>
+          </span>
         )}
       </div>
 
+      {/* Embedded Video with Max Width */}
       {submission.videoOverviewUrl &&
         isYouTubeVideo(submission.videoOverviewUrl) && (
-          <div className="mb-6">
-            <div className="aspect-video w-full">
-              <iframe
-                src={getYouTubeEmbedUrl(submission.videoOverviewUrl)}
-                title="Video Overview"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full rounded-lg"
-              ></iframe>
+          <div className="mb-6 flex justify-center">
+            <div className="w-full max-w-2xl">
+              <div className="aspect-video w-full">
+                <iframe
+                  src={getYouTubeEmbedUrl(submission.videoOverviewUrl)}
+                  title="Video Overview"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full rounded-lg"
+                ></iframe>
+              </div>
             </div>
           </div>
         )}
 
+      {/* Tabbed Project Content */}
+      <ProjectTabs submissions={submission} />
+
+      {/* Judge Notes */}
       <div className="mb-4">
         <label
           htmlFor={`notes-${submission._id}`}
@@ -271,6 +519,7 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
         />
       </div>
 
+      {/* Timestamps */}
       <div className="text-xs text-muted-foreground">
         Created: {new Date(submission.createdAt).toLocaleDateString()} |
         Updated: {new Date(submission.updatedAt).toLocaleDateString()}
