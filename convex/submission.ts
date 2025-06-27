@@ -95,9 +95,16 @@ export const getAllSubmissions = query({
       query = query.filter((q) => q.eq(q.field("status"), args.filter!.status));
     }
     if (args.filter?.reviewed !== undefined) {
-      query = query.filter((q) =>
-        q.eq(q.field("reviewed"), args.filter!.reviewed)
-      );
+      query = query.filter((q) => {
+        if (args.filter!.reviewed) {
+          return q.eq(q.field("reviewed"), true);
+        } else {
+          return q.or(
+            q.eq(q.field("reviewed"), false),
+            q.eq(q.field("reviewed"), undefined)
+          );
+        }
+      });
     }
     if (args.filter?.goodSubmission !== undefined) {
       query = query.filter((q) =>

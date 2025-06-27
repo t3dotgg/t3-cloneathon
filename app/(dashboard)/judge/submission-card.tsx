@@ -102,7 +102,19 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
                   clipRule="evenodd"
                 />
               </svg>
-              {submission.members.join(", ")}
+              {submission.members.map((member, index) => (
+                <span key={member}>
+                  <a
+                    href={`https://github.com/${member}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 transition-colors underline"
+                  >
+                    {member}
+                  </a>
+                  {index < submission.members.length - 1 && ", "}
+                </span>
+              ))}
             </span>
             <span
               className={`px-2 py-1 rounded-full text-xs font-medium ${
